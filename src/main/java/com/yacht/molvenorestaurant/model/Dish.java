@@ -1,4 +1,4 @@
-package com.yacht.molvenorestaurant.business;
+package com.yacht.molvenorestaurant.model;
 
 import java.util.List;
 
