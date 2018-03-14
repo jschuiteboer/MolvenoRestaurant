@@ -1,15 +1,28 @@
 package com.yacht.molvenorestaurant.business;
 
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
 public class Guest {
     private int roomnumber;
-
-    /**
-     * First and last name
-     */
     private String name;
+    return roomnumber;
+    }
 
-    private boolean isFemale;
+    public void setRoomnumber(int roomnumber) {
+        this.roomnumber = roomnumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void Guest(int roomnumber,String name){
+        this.name = name;
+        this.roomnumber = roomnumber;
+    }
 }
