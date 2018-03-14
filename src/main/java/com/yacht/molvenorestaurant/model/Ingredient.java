@@ -1,7 +1,7 @@
 package com.yacht.molvenorestaurant.model;
 
 public class Ingredient {
-    private String name;
+    private String ingredientName;
     private int minimumStock;
     private int stock;
     private EAllergy allergy;
@@ -18,12 +18,12 @@ public class Ingredient {
         return boolsetter;
     }
 
-    public String getName() {
-        return name;
+    public String getIngredientName() {
+        return ingredientName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
     }
 
     public int getMinimumStock() {
