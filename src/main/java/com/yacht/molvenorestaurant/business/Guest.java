@@ -8,7 +8,7 @@ public class Guest {
     private String name;
     private List<Bill> bills;
 
-    
+
     public int getRoomnumber() {
         return roomnumber;
     }
