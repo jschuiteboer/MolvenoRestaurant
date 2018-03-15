@@ -1,9 +1,9 @@
 package com.yacht.molvenorestaurant.business;
 
-        import java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.util.List;
 
-        public class Bill {
+public class Bill {
     private boolean isPaid;
     private Table table = new Table();
     private Guest guest = new Guest();
@@ -24,7 +24,6 @@ import java.util.List;
             public boolean isPaid() {
                 return isPaid;
             }
-
 
             public Table getTable() {
                 return table;
