@@ -1,4 +1,6 @@
-package com.yacht.molvenorestaurant.business;
+package com.yacht.molvenorestaurant.model;
+
+import com.yacht.molvenorestaurant.model.Dish;
 
 import java.math.BigDecimal;
 import java.util.List;
