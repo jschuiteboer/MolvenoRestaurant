@@ -6,7 +6,19 @@ import java.util.List;
 public class Guest {
     private int roomnumber;
     private String name;
-    return roomnumber;
+    private List<Bill> bills;
+
+    
+    public int getRoomnumber() {
+        return roomnumber;
+    }
+
+    public List<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<Bill> bills) {
+        this.bills = bills;
     }
 
     public void setRoomnumber(int roomnumber) {

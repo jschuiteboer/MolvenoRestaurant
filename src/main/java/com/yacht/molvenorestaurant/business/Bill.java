@@ -26,7 +26,6 @@ import java.util.List;
             }
 
 
-
             public Table getTable() {
                 return table;
             }
@@ -51,7 +50,4 @@ import java.util.List;
                 return total;
             }
 
-            public void getTableNumber(){
-
-                    }
 }
