@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class Order {
+    private Long ID;
     private List<Dish> orderList;
     private String comment;
     private boolean isReady;
@@ -48,5 +49,13 @@ public class Order {
 
     public void setReady(boolean ready) {
         isReady = ready;
+    }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
     }
 }
