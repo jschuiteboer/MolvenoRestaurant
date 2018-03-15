@@ -9,13 +9,7 @@ public class Ingredient {
 
     public boolean isOutOfStock()
     {
-        boolean boolsetter;
-
-        if (this.stock<= this.minimumStock)
-        {boolsetter = true;}
-        else
-        {boolsetter = false;};
-        return boolsetter;
+        return this.stock <= this.minimumStock;
     }
 
     public String getName() {
