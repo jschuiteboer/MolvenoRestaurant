@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillManager {
-    public static List<Bill> bills = new ArrayList<>();
+    private static List<Bill> bills = new ArrayList<>();
 
     public void markAsPaid(Bill bill) {
         bill.setPaid(true);
