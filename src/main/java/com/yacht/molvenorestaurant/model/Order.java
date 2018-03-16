@@ -24,8 +24,9 @@ public class Order {
         return totalPrice;
     }
 
-    public void addDish(Dish dish)
-    {}
+    public void addDish(Dish dish){
+        orderList.add(dish);
+    }
 
     public List<Dish> getOrderList() {
         return orderList;
