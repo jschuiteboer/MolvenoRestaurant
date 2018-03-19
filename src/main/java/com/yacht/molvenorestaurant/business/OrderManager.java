@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class OrderManager {
 
-    public ArrayList<Order> orders;
+    private ArrayList<Order> orders;
 
     public void addOrder(Order order){
         orders.add(order);
@@ -25,7 +25,7 @@ public class OrderManager {
     }
 
     public void markOrderComplete(Order order){
-
+        order.setComplete(true);
     }
 
     public ArrayList<Order> getOrders() {
