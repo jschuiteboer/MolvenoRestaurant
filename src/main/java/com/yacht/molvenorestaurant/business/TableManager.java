@@ -34,8 +34,8 @@ public class TableManager {
             if(table.isOccupied() == false){
                 freeTables.add(table);
             }
-            return freeTables;
         }
+        return freeTables;
     }
 
 
