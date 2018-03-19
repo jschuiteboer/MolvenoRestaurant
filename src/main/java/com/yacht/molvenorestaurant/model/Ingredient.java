@@ -5,7 +5,7 @@ public class Ingredient {
     private int minimumStock;
     private int stock;
     private EAllergy allergy;
-    private Supplier Supplier;
+    private Supplier supplier;
 
     public boolean isOutOfStock()
     {
@@ -45,10 +45,10 @@ public class Ingredient {
     }
 
     public Supplier getSupplier() {
-        return Supplier;
+        return supplier;
     }
 
     public void setSupplier(Supplier supplier) {
-        Supplier = supplier;
+        supplier = supplier;
     }
 }
