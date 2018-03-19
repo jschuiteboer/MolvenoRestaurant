@@ -9,18 +9,18 @@ public class Bill {
     private boolean isPaid;
     private Table table = new Table();
     private Guest guest = new Guest();
-    private List<Dish> dishList;
+    private List<Order> orderList;
 
             public void setPaid(boolean paid) {
                 isPaid = paid;
             }
 
             public List<Dish> getDishList() {
-                return dishList;
+                return orderList;
             }
 
             public void setDishList(List<Dish> dishList) {
-                this.dishList = dishList;
+                this.orderList = dishList;
             }
 
             public boolean isPaid() {
@@ -45,7 +45,7 @@ public class Bill {
 
             public BigDecimal getTotalPrice(){
                 BigDecimal total = new BigDecimal(0);
-                for(Dish dish: dishList) {
+                for(Dish dish: orderList) {
                         total = total.add(dish.getPrice());
                     }
                 return total;
