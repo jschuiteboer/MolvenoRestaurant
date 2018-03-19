@@ -41,6 +41,7 @@ public class OrderController {
 
     @GetMapping("/api/order/markOrderComplete")
     public void markOrderComplete(Order order) {
-        // TODO: implementation
+        order.setReady(true);
+        this.updateOrder(order);
     }
 }
