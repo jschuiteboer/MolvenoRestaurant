@@ -16,9 +16,9 @@ public class ReservationManager {
         reservationList.remove(ingredient);
     }
 
-    public void updateIngredient(RestaurantReservation ingredient, String questName) {
+    public void updateIngredient(RestaurantReservation ingredient, String guestName) {
         for (RestaurantReservation oldIngredient : reservationList) {
-            if (oldIngredient.getQuestName().equals(questName)) {
+            if (oldIngredient.getGuestName().equals(guestName)) {
                 reservationList.add(reservationList.indexOf(oldIngredient), ingredient);
             }
         }

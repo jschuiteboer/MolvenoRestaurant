@@ -5,9 +5,12 @@ import java.time.LocalDate;
 public class RestaurantReservation {
 
     private Table table;
-    private String questName;
+    private String guestName;
     private LocalDate date;
     private int numberOfPeople;
+
+    public RestaurantReservation() {
+    }
 
     public Table getTable() {
         return table;
@@ -17,12 +20,12 @@ public class RestaurantReservation {
         this.table = table;
     }
 
-    public String getQuestName() {
-        return questName;
+    public String getGuestName() {
+        return guestName;
     }
 
-    public void setQuestName(String questName) {
-        this.questName = questName;
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
     }
 
     public LocalDate getDate() {
