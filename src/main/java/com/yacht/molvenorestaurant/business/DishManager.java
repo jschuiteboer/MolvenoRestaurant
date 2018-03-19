@@ -18,10 +18,10 @@ public class DishManager {
         return dishList;
     }
 
-    public void updateDish(Dish Dish, String name){
+    public void updateDish(Dish dish, String name){
         for (Dish oldDish : dishList) {
             if (oldDish.getName().equals(name)) {
-                dishList.add(dishList.indexOf(oldDish), Dish);
+                dishList.add(dishList.indexOf(oldDish), dish);
             }
         }
     }
