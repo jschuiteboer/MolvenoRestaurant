@@ -1,7 +1,5 @@
 package com.yacht.molvenorestaurant.model;
 
-import com.yacht.molvenorestaurant.model.Dish;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -11,44 +9,53 @@ public class Bill {
     private Guest guest = new Guest();
     private List<Order> orderList;
 
-            public void setPaid(boolean paid) {
-                isPaid = paid;
-            }
+    public Bill(boolean isPaid, Table table, Guest guest, List<Order> orderList) {
+        this.isPaid = isPaid;
+        this.table = table;
+        this.guest = guest;
+        this.orderList = orderList;
+    }
 
-            public List<Dish> getDishList() {
-                return orderList;
-            }
+    public Bill() {
+    }
 
-            public void setDishList(List<Dish> dishList) {
-                this.orderList = dishList;
-            }
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
 
-            public boolean isPaid() {
-                return isPaid;
-            }
+    public List<Dish> getDishList() {
+        return orderList;
+    }
 
-            public Table getTable() {
-                return table;
-            }
+    public void setDishList(List<Dish> dishList) {
+        this.orderList = dishList;
+    }
 
-            public void setTable(Table table) {
-                this.table = table;
-            }
+    public boolean isPaid() {
+        return isPaid;
+    }
 
-            public Guest getGuest() {
-                return guest;
-            }
+    public Table getTable() {
+        return table;
+    }
 
-            public void setGuest(Guest guest) {
-                this.guest = guest;
-            }
+    public void setTable(Table table) {
+        this.table = table;
+    }
 
-            public BigDecimal getTotalPrice(){
-                BigDecimal total = new BigDecimal(0);
-                for(Dish dish: orderList) {
-                        total = total.add(dish.getPrice());
-                    }
-                return total;
-            }
+    public Guest getGuest() {
+        return guest;
+    }
 
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+    public BigDecimal getTotalPrice(){
+        BigDecimal total = new BigDecimal(0);
+        for(Dish dish: orderList) {
+            total = total.add(dish.getPrice());
+        }
+        return total;
+    }
 }

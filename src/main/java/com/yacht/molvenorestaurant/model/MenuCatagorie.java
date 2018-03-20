@@ -7,6 +7,12 @@ public class MenuCatagorie {
     private String name;
     private List<Dish> dishList;
 
+
+    public MenuCatagorie(String name, List<Dish> dishList) {
+        this.name = name;
+        this.dishList = dishList;
+    }
+
     public MenuCatagorie() {
     }
 

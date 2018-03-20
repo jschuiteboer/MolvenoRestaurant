@@ -1,29 +1,19 @@
 package com.yacht.molvenorestaurant.model;
 
-
-
-
 public class Menu extends Dish {
-    private String dishName;
-    private Dish appetizer;
+    private Dish starter;
     private Dish main;
     private Dish dessert;
-    private int dishPrice;
 
-    public String getDishName() {
-        return dishName;
+    public Menu() {
     }
 
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
+    public Dish getStarter() {
+        return starter;
     }
 
-    public Dish getAppetizer() {
-        return appetizer;
-    }
-
-    public void setAppetizer(Dish appetizer) {
-        this.appetizer = appetizer;
+    public void setStarter(Dish starter) {
+        this.starter = starter;
     }
 
     public Dish getMain() {
@@ -42,11 +32,4 @@ public class Menu extends Dish {
         this.dessert = dessert;
     }
 
-    public int getDishPrice() {
-        return dishPrice;
-    }
-
-    public void setDishPrice(int dishPrice) {
-        this.dishPrice = dishPrice;
-    }
 }

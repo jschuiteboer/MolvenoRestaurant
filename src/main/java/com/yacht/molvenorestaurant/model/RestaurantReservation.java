@@ -9,6 +9,13 @@ public class RestaurantReservation {
     private LocalDate date;
     private int numberOfPeople;
 
+    public RestaurantReservation(Table table, String guestName, LocalDate date, int numberOfPeople) {
+        this.table = table;
+        this.guestName = guestName;
+        this.date = date;
+        this.numberOfPeople = numberOfPeople;
+    }
+
     public RestaurantReservation() {
     }
 

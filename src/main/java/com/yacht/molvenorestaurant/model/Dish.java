@@ -11,6 +11,9 @@ public class Dish {
     private List<Ingredient> ingredientList;
     private String description;
 
+    public Dish() {
+    }
+
     public String getName() {
         return name;
     }
