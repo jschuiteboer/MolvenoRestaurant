@@ -1,10 +1,17 @@
 package com.yacht.molvenorestaurant.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Entity(name = "order_") // renamed because sql is conflicting with the order keyword
 public class Order {
+    @Id
     private Long ID;
+    //TODO: don't ignore this field
+    @Transient
     private List<Dish> orderList;
     private String comment;
     private boolean isReady;

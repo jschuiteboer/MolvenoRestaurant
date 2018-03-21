@@ -17,8 +17,8 @@ public class OrderController {
     @Autowired
     private OrderManager orderManager;
 
-    @GetMapping("/page/{pageNum}")
-    public Iterable<Order> getPage(@PathVariable int pageNum) {
-        return this.orderManager.getOrders(new PageRequest(pageNum, PAGE_SIZE));
+    @GetMapping("/page/{page}")
+    public Iterable<Order> getPage(@PathVariable int page) {
+        return this.orderManager.getOrders(new PageRequest(page, PAGE_SIZE));
     }
 }
