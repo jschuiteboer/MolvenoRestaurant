@@ -1,19 +1,18 @@
 package com.yacht.molvenorestaurant.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class MenuCatagorie {
+public class MenuCategory {
 
     private String name;
-    private List<Dish> dishList;
+    private ArrayList<Dish> dishList;
 
-
-    public MenuCatagorie(String name, List<Dish> dishList) {
+    public MenuCategory(String name, ArrayList<Dish> dishList) {
         this.name = name;
         this.dishList = dishList;
     }
 
-    public MenuCatagorie() {
+    public MenuCategory() {
     }
 
     public String getName() {
@@ -24,11 +23,11 @@ public class MenuCatagorie {
         this.name = name;
     }
 
-    public List<Dish> getDishList() {
+    public ArrayList<Dish> getDishList() {
         return dishList;
     }
 
-    public void setDishList(List<Dish> dishList) {
+    public void setDishList(ArrayList<Dish> dishList) {
         this.dishList = dishList;
     }
 }

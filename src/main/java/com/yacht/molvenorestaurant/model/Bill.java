@@ -1,7 +1,5 @@
 package com.yacht.molvenorestaurant.model;
 
-import com.yacht.molvenorestaurant.model.Dish;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,6 +8,16 @@ public class Bill {
     private Table table = new Table();
     private Guest guest = new Guest();
     private List<Order> orderList;
+
+    public Bill(boolean isPaid, Table table, Guest guest, List<Order> orderList) {
+        this.isPaid = isPaid;
+        this.table = table;
+        this.guest = guest;
+        this.orderList = orderList;
+    }
+
+    public Bill() {
+    }
 
     public void setPaid(boolean paid) {
         isPaid = paid;
@@ -50,5 +58,4 @@ public class Bill {
         }
         return total;
     }
-
 }
