@@ -6,7 +6,7 @@ public class Supplier {
 
     public Supplier(){}
 
-    public Suplier(String name) {
+    public Supplier(String name) {
         this.name = name;
     }
 
