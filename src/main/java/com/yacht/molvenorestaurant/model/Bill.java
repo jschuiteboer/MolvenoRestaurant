@@ -11,44 +11,44 @@ public class Bill {
     private Guest guest = new Guest();
     private List<Order> orderList;
 
-            public void setPaid(boolean paid) {
-                isPaid = paid;
-            }
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
 
-            public List<Dish> getDishList() {
-                return orderList;
-            }
+    public boolean isPaid() {
+        return isPaid;
+    }
 
-            public void setDishList(List<Dish> dishList) {
-                this.orderList = dishList;
-            }
+    public Table getTable() {
+        return table;
+    }
 
-            public boolean isPaid() {
-                return isPaid;
-            }
+    public void setTable(Table table) {
+        this.table = table;
+    }
 
-            public Table getTable() {
-                return table;
-            }
+    public Guest getGuest() {
+        return guest;
+    }
 
-            public void setTable(Table table) {
-                this.table = table;
-            }
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
 
-            public Guest getGuest() {
-                return guest;
-            }
+    public List<Order> getOrderList() {
+        return orderList;
+    }
 
-            public void setGuest(Guest guest) {
-                this.guest = guest;
-            }
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 
-            public BigDecimal getTotalPrice(){
-                BigDecimal total = new BigDecimal(0);
-                for(Dish dish: orderList) {
-                        total = total.add(dish.getPrice());
-                    }
-                return total;
-            }
+    public BigDecimal getTotalPrice() {
+        BigDecimal total = new BigDecimal(0);
+        for (Order order : orderList) {
+            total = total.add(order.getTotalPrice());
+        }
+        return total;
+    }
 
 }
