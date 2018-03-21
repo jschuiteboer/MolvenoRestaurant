@@ -1,7 +1,6 @@
 package com.yacht.molvenorestaurant.business;
 
 import com.yacht.molvenorestaurant.model.Order;
-
 import java.util.ArrayList;
 
 public class OrderManager {

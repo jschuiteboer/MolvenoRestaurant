@@ -1,16 +1,35 @@
 package com.yacht.molvenorestaurant.model;
 
-import lombok.Data;
-
-@Data
 public class Menu extends Dish {
-    private String name;
-
-    private Dish appetizer;
-
+    private Dish starter;
     private Dish main;
-
     private Dish dessert;
 
-    private int price;
+    public Menu() {
+    }
+
+    public Dish getStarter() {
+        return starter;
+    }
+
+    public void setStarter(Dish starter) {
+        this.starter = starter;
+    }
+
+    public Dish getMain() {
+        return main;
+    }
+
+    public void setMain(Dish main) {
+        this.main = main;
+    }
+
+    public Dish getDessert() {
+        return dessert;
+    }
+
+    public void setDessert(Dish dessert) {
+        this.dessert = dessert;
+    }
+
 }

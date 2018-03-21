@@ -1,16 +1,18 @@
 package com.yacht.molvenorestaurant.model;
 
+
+import java.math.BigDecimal;
 import java.util.List;
 
 
 public class Dish {
     private String name;
-
-    private int price;
-
+    private BigDecimal price;
     private List<Ingredient> ingredientList;
-
     private String description;
+
+    public Dish() {
+    }
 
     public String getName() {
         return name;
@@ -20,11 +22,7 @@ public class Dish {
         this.name = name;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -43,8 +41,8 @@ public class Dish {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
 }
-
-
-
-
