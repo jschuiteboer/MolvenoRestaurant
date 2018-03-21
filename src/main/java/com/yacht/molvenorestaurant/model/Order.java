@@ -24,6 +24,16 @@ public class Order {
         return totalPrice;
     }
 
+    public Order(Long ID, List<Dish> orderList, String comment, boolean isReady) {
+        this.ID = ID;
+        this.orderList = orderList;
+        this.comment = comment;
+        this.isReady = isReady;
+    }
+
+    public Order() {
+    }
+
     public void addDish(Dish dish){
         orderList.add(dish);
     }
