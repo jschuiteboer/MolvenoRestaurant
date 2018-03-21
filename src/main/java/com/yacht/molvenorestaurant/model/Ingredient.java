@@ -1,5 +1,7 @@
 package com.yacht.molvenorestaurant.model;
 
+import java.util.function.Supplier;
+
 public class Ingredient {
     private String ingredientName;
     private int minimumStock;
@@ -10,6 +12,17 @@ public class Ingredient {
     public boolean isOutOfStock()
     {
         return this.stock <= this.minimumStock;
+    }
+
+    public Ingredient() {
+    }
+
+    public Ingredient(String ingredientName, int minimumStock, int stock, EAllergy allergy, Supplier supplier) {
+        this.ingredientName = ingredientName;
+        this.minimumStock = minimumStock;
+        this.stock = stock;
+        this.allergy = allergy;
+        this.supplier = supplier;
     }
 
     public String getIngredientName() {

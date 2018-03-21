@@ -1,6 +1,5 @@
 package com.yacht.molvenorestaurant.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Guest {
@@ -8,6 +7,14 @@ public class Guest {
     private String name;
     private List<Bill> bills;
 
+    public Guest(int roomnumber, String name, List<Bill> bills) {
+        this.roomnumber = roomnumber;
+        this.name = name;
+        this.bills = bills;
+    }
+
+    public Guest() {
+    }
 
     public int getRoomnumber() {
         return roomnumber;
@@ -33,8 +40,5 @@ public class Guest {
         this.name = name;
     }
 
-    public void Guest(int roomnumber,String name){
-        this.name = name;
-        this.roomnumber = roomnumber;
-    }
+
 }

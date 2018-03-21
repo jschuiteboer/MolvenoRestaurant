@@ -6,6 +6,10 @@ public class Supplier {
 
     public Supplier(){}
 
+    public Suplier(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
