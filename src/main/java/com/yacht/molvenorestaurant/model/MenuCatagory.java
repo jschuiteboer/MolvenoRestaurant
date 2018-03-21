@@ -6,6 +6,14 @@ public class MenuCatagory {
     private String name;
     private List<Dish> dishList;
 
+    public MenuCatagory() {
+    }
+
+    public MenuCatagory(String name, List<Dish> dishList) {
+        this.name = name;
+        this.dishList = dishList;
+    }
+
     public String getName() {
         return name;
     }
