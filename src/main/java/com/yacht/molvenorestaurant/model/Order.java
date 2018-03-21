@@ -1,10 +1,7 @@
 package com.yacht.molvenorestaurant.model;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.util.List;
-
 
 public class Order {
     private Long ID;
@@ -17,7 +14,7 @@ public class Order {
         BigDecimal totalPrice = new BigDecimal(0);
 
         for (Dish dish: orderList) {
-            BigDecimal price = new BigDecimal(dish.getPrice());
+            BigDecimal price = dish.getPrice();
             totalPrice = totalPrice.add(price);
         }
 

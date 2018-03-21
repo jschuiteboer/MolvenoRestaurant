@@ -1,10 +1,10 @@
 package com.yacht.molvenorestaurant.model;
 
-public class Suplier {
+public class Supplier {
 
     private String name;
 
-    public Suplier(){}
+    public Supplier(){}
 
     public Suplier(String name) {
         this.name = name;
