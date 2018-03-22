@@ -1,33 +1,38 @@
 package com.yacht.molvenorestaurant.business;
 
 import com.yacht.molvenorestaurant.model.Order;
-import java.util.ArrayList;
+import com.yacht.molvenorestaurant.repository.IOrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderManager {
+    @Autowired
+    private IOrderRepository orderRepository;
 
-    private ArrayList<Order> orders;
-
-    public void addOrder(Order order){
-        orders.add(order);
+    public Page<Order> getOrders(PageRequest request) {
+        return orderRepository.findAll(request);
     }
 
-    public void removeOrder(Order order){
-        orders.remove(order);
+    public Iterable<Order> getAll() {
+        return orderRepository.findAll();
     }
 
-    public void updateOrder(Order order, Long ID){
-        for (Order oldOrder : orders) {
-            if (oldOrder.getID().equals(ID)) {
-                orders.add(orders.indexOf(oldOrder), order);
-            }
-        }
+    public Order createNewOrder() {
+        return new Order();
     }
 
-    public void markOrderComplete(Order order){
-        order.setComplete(true);
+    public Order updateOrder(Order order) {
+        return this.orderRepository.save(order);
     }
 
-    public ArrayList<Order> getOrders() {
-        return orders;
+    public void removeOrder(Order order) {
+        this.orderRepository.delete(order);
+    }
+
+    public Order saveOrder(Order order) {
+        return this.orderRepository.save(order);
     }
 }

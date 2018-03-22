@@ -1,5 +1,7 @@
 package com.yacht.molvenorestaurant.business;
 
+import com.yacht.molvenorestaurant.model.Supplier;
+
 import java.util.ArrayList;
 
 public class SupplierManager {
@@ -10,14 +12,15 @@ public class SupplierManager {
         supplierList.add(supplier);
     }
 
-    public void removeSupplier(Supplier supplier){
+    public void removeSupplier(Supplier supplier) {
         supplierList.remove(supplier);
     }
 
     public void updateSupplier(Supplier supplier, String name) {
         for (Supplier oldSupplier : supplierList) {
-            if (oldSupplier.getSupplierName().equals(name)) {
+            if (oldSupplier.getName().equals(name)) {
                 supplierList.add(supplierList.indexOf(oldSupplier), supplier);
             }
         }
     }
+}

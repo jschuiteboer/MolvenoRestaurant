@@ -23,14 +23,6 @@ public class Bill {
         isPaid = paid;
     }
 
-    public List<Dish> getDishList() {
-        return orderList;
-    }
-
-    public void setDishList(List<Dish> dishList) {
-        this.orderList = dishList;
-    }
-
     public boolean isPaid() {
         return isPaid;
     }
@@ -51,10 +43,18 @@ public class Bill {
         this.guest = guest;
     }
 
-    public BigDecimal getTotalPrice(){
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    public BigDecimal getTotalPrice() {
         BigDecimal total = new BigDecimal(0);
-        for(Dish dish: orderList) {
-            total = total.add(dish.getPrice());
+        for (Order order : orderList) {
+            total = total.add(order.getTotalPrice());
         }
         return total;
     }
