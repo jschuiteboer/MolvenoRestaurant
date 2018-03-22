@@ -1,6 +1,9 @@
 package com.yacht.molvenorestaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.math.BigDecimal;
@@ -9,6 +12,7 @@ import java.util.List;
 @Entity(name = "order_") // renamed because sql is conflicting with the order keyword
 public class Order {
     @Id
+    @GeneratedValue
     private Long ID;
     //TODO: don't ignore this field
     @Transient
@@ -16,6 +20,7 @@ public class Order {
     private String comment;
     private boolean isReady;
 
+    @JsonIgnore
     public BigDecimal getTotalPrice()
     {
         BigDecimal totalPrice = new BigDecimal(0);

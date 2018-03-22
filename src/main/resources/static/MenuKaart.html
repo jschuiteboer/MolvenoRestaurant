@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+
+    <meta charset="UTF-8">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <!-- JQuery Datatables. Load after JQuery -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <table id="orderTable">
+        <thead>
+        <tr>
+            <th data-data="id">id</th>
+            <th data-data="ready">isReady</th>
+            <th data-data="comment">Comment</th>
+        </tr>
+        </thead>
+    </table>
+    <script>
+        $('#orderTable').DataTable({
+            "ajax": {
+                "url": "/api/orders/",
+                "dataSrc": "",
+                "type": "GET",
+            },
+        });
+    </script>
+</body>
+</html>

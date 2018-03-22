@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/orders")
 public class OrderController {
@@ -16,6 +18,11 @@ public class OrderController {
 
     @Autowired
     private OrderManager orderManager;
+
+    @GetMapping()
+    public Iterable<Order> getAll() {
+        return this.orderManager.getAll();
+    }
 
     @GetMapping("page/{page}")
     public Iterable<Order> getPage(@PathVariable int page) {
