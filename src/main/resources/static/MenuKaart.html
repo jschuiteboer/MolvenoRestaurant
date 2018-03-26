@@ -79,7 +79,8 @@
     </div>
 </div>
 </div>
-<script>
+    <script>
+        var _restEndpoint = '/api/orders/';
         var _tableElement = $('#orderTable');
         var _modalElement = $('#entryModal');
 
@@ -102,7 +103,7 @@
                 return;
             }
 
-            $.get('/api/orders/' + data.id, function(data) {
+            $.get(_restEndpoint + data.id, function(data) {
                 if(!data) return;
 
                 openModalForObject(data);
@@ -130,7 +131,7 @@
 
                     $.ajax({
                         contentType : 'application/json',
-                        url: '/api/orders/save/',
+                        url: _restEndpoint,
                         type: 'post',
                         data: JSON.stringify(saveData),
                         success: function() {
@@ -148,7 +149,7 @@
                     if(result) {
                         $.ajax({
                             contentType : 'application/json',
-                            url: '/api/orders/' + data.id,
+                            url: _restEndpoint + data.id,
                             type: 'delete',
                             success: function() {
                                 _modalElement.modal('hide');

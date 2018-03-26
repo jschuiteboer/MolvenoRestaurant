@@ -19,7 +19,7 @@ public class OrderController {
     }
 
     @GetMapping("{id}")
-    public Order getOne(@PathVariable Long id) {
+    public Order getOne(@PathVariable long id) {
         return this.orderManager.getOne(id);
     }
 
@@ -29,7 +29,7 @@ public class OrderController {
     }
 
     @DeleteMapping("{id}")
-    public void deleteOrder(@PathVariable Long id) {
+    public void deleteOrder(@PathVariable long id) {
         this.orderManager.deleteOrder(id);
     }
 }
