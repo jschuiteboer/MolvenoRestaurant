@@ -1,7 +1,7 @@
 package com.yacht.molvenorestaurant.repository;
 
 import com.yacht.molvenorestaurant.model.Order;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface IOrderRepository extends PagingAndSortingRepository<Order, Long> {
+public interface IOrderRepository extends CrudRepository<Order, Long> {
 }
