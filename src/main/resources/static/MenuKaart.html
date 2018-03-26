@@ -119,36 +119,44 @@
 
             _modalElement.find('#modal-title').html('Edit Order');
 
-            _modalElement.find('#btnsubmit').one('click', function() {
-                var saveData = {
-                    id: data.id,
-                    comment: _commentField.val(),
-                    ready: _readyField.is(':checked'),
-                };
+            _modalElement.find('#btnsubmit')
+                .off('click')
+                .on('click', function() {
+                    var saveData = {
+                        id: data.id,
+                        comment: _commentField.val(),
+                        ready: _readyField.is(':checked'),
+                    };
 
-                $.ajax({
-                    contentType : 'application/json',
-                    url: '/api/orders/save/',
-                    type: 'post',
-                    data: JSON.stringify(saveData),
-                    success: function() {
-                        _modalElement.modal('hide');
-                        reloadData();
-                    },
+                    $.ajax({
+                        contentType : 'application/json',
+                        url: '/api/orders/save/',
+                        type: 'post',
+                        data: JSON.stringify(saveData),
+                        success: function() {
+                            _modalElement.modal('hide');
+                            reloadData();
+                        },
+                    });
                 });
-            });
 
-            _modalElement.find('#btndelete').one('click', function() {
-                $.ajax({
-                    contentType : 'application/json',
-                    url: '/api/orders/' + data.id,
-                    type: 'delete',
-                    success: function() {
-                        _modalElement.modal('hide');
-                        reloadData();
-                    },
+            _modalElement.find('#btndelete')
+                .off('click')
+                .on('click', function() {
+                    var result = confirm('this action can not be undone');
+
+                    if(result) {
+                        $.ajax({
+                            contentType : 'application/json',
+                            url: '/api/orders/' + data.id,
+                            type: 'delete',
+                            success: function() {
+                                _modalElement.modal('hide');
+                                reloadData();
+                            },
+                        });
+                    }
                 });
-            });
 
             _modalElement.modal('show');
         }
