@@ -17,8 +17,18 @@ public class DishController {
         return dishManager.getAll();
     }
 
+    @GetMapping()
+    public Dish getOne(@PathVariable long id) {
+        return dishManager.getOne(id)
+    }
+
     @PostMapping("save")
     public Dish saveDish (@RequestBody Dish dish){
         return dishManager.saveDish(dish);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteDish(@PathVariable long id){
+        dishManager.deleteDish(id);
     }
 }

@@ -5,8 +5,6 @@ import com.yacht.molvenorestaurant.repository.IDishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-
 @Component
 public class DishManager {
 
