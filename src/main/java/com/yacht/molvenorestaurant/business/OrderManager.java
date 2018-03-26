@@ -21,20 +21,12 @@ public class OrderManager {
         return orderRepository.findOne(id);
     }
 
-    public Order createNewOrder() {
-        return new Order();
-    }
-
-    public Order updateOrder(Order order) {
-        return this.orderRepository.save(order);
-    }
-
-    public void removeOrder(Order order) {
-        this.orderRepository.delete(order);
-    }
-
     public Order saveOrder(Order order) {
         return this.orderRepository.save(order);
+    }
+
+    public void deleteOrder(Long id) {
+        this.orderRepository.delete(id);
     }
 
     @PostConstruct
@@ -48,9 +40,5 @@ public class OrderManager {
 
             this.saveOrder(order);
         }
-    }
-
-    public void deleteOrder(Long id) {
-        this.orderRepository.delete(id);
     }
 }
