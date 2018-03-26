@@ -1,13 +1,25 @@
 package com.yacht.molvenorestaurant.model;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.List;
 
-
+@Entity
 public class Dish {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
     private BigDecimal price;
+
+    //TODO IngredientList fill in
+    @Transient
     private List<Ingredient> ingredientList;
     private String description;
 

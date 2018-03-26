@@ -1,28 +1,34 @@
 package com.yacht.molvenorestaurant.business;
 
 import com.yacht.molvenorestaurant.model.Dish;
+import com.yacht.molvenorestaurant.repository.IDishRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
-
+@Component
 public class DishManager {
-    private ArrayList<Dish> dishList;
 
-    public void addDish(Dish dish){
-        dishList.add(dish);
-    }
-    public void removeDish(Dish dish){
-        dishList.remove(dish);
-    }
+    @Autowired
+    private IDishRepository dishRepository;
 
-    public ArrayList<Dish> getDishList() {
-        return dishList;
+    public Iterable<Dish> getAll() {
+        return dishRepository.findAll();
     }
 
-    public void updateDish(Dish dish, String name){
-        for (Dish oldDish : dishList) {
-            if (oldDish.getName().equals(name)) {
-                dishList.add(dishList.indexOf(oldDish), dish);
-            }
-        }
+    public Dish getOne(Long id){
+        return dishRepository.findOne(id);
+    }
+
+    public Dish saveDish(Dish dish) {
+        return dishRepository.save(dish);
+    }
+
+    public Dish updateDish(Dish dish){
+        return dishRepository.save(dish);
+    }
+
+    public void deleteDish(Long id) {
+        dishRepository.delete(id);
     }
 }
+
