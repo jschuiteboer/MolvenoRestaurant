@@ -70,9 +70,9 @@
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
-                <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>
-                <button type="button" class="btn btn-default" id="btnclose" onclick="deselect()" data-dismiss="modal">Close</button>
+                <button id="btnsubmit" class="btn btn-primary">Submit</button>
+                <button id="btndelete" class="btn btn-danger">Delete</button>
+                <button id="btnclose" class="btn btn-default" data-dismiss="modal">Close</button>
 
             </div>
         </div>
@@ -85,9 +85,9 @@
 
         var _dataTable = _tableElement.DataTable({
             ajax: {
-                "url": "/api/orders/",
-                "dataSrc": "",
-                "type": "GET",
+                url: '/api/orders/',
+                dataSrc: "",
+                type: "GET",
             },
         });
 
@@ -133,12 +133,28 @@
                     data: JSON.stringify(saveData),
                     success: function() {
                         _modalElement.modal('hide');
-                        _dataTable.ajax.reload();
+                        reloadData();
+                    },
+                });
+            });
+
+            _modalElement.find('#btndelete').one('click', function() {
+                $.ajax({
+                    contentType : 'application/json',
+                    url: '/api/orders/' + data.id,
+                    type: 'delete',
+                    success: function() {
+                        _modalElement.modal('hide');
+                        reloadData();
                     },
                 });
             });
 
             _modalElement.modal('show');
+        }
+
+        function reloadData() {
+            _dataTable.ajax.reload();
         }
     </script>
 </body>

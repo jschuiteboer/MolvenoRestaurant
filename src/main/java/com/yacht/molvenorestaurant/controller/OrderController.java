@@ -27,4 +27,9 @@ public class OrderController {
     public Order saveOrder(@RequestBody Order order) {
         return this.orderManager.saveOrder(order);
     }
+
+    @DeleteMapping("{id}")
+    public void deleteOrder(@PathVariable Long id) {
+        this.orderManager.deleteOrder(id);
+    }
 }

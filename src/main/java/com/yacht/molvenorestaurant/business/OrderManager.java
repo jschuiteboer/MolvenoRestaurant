@@ -49,4 +49,8 @@ public class OrderManager {
             this.saveOrder(order);
         }
     }
+
+    public void deleteOrder(Long id) {
+        this.orderRepository.delete(id);
+    }
 }
