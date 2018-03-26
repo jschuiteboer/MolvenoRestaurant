@@ -16,18 +16,8 @@ public class OrderController {
         return this.orderManager.getAll();
     }
 
-    @GetMapping("{id}")
-    public Order getOne(@PathVariable long id) {
-        return this.orderManager.getOne(id);
-    }
-
     @PostMapping("save")
     public Order saveOrder(@RequestBody Order order) {
         return this.orderManager.saveOrder(order);
-    }
-
-    @DeleteMapping("{id}")
-    public void deleteOrder(@PathVariable long id) {
-        this.orderManager.deleteOrder(id);
     }
 }
