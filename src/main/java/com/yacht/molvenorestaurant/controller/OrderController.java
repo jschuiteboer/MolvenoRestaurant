@@ -3,7 +3,6 @@ package com.yacht.molvenorestaurant.controller;
 import com.yacht.molvenorestaurant.business.OrderManager;
 import com.yacht.molvenorestaurant.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,9 +18,9 @@ public class OrderController {
         return this.orderManager.getAll();
     }
 
-    @GetMapping("page/{page}")
-    public Iterable<Order> getPage(@PathVariable int page) {
-        return this.orderManager.getOrders(new PageRequest(page, PAGE_SIZE));
+    @GetMapping("{id}")
+    public Order getOne(@PathVariable Long id) {
+        return this.orderManager.getOne(id);
     }
 
     @PostMapping("save")

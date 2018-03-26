@@ -5,28 +5,54 @@
 
     <meta charset="UTF-8">
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
 
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
     <!-- JQuery Datatables. Load after JQuery -->
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
-    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs/dt-1.10.16/datatables.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"
+          rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <p>
-            <form id="add-form" class="card">
-                <div class="card-header">
-                    Voeg nieuw orders toe
-                </div>
+<div class="container">
+    <h1>Orders</h1>
 
-                <div class="card-body">
+    <table id="orderTable" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th data-data="id">id</th>
+            <th data-data="ready">isReady</th>
+            <th data-data="comment">Comment</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div id="entryModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
+                <h3 id="modal-title" class="modal-title">Order</h3>
+
+            </div>
+            <div class="modal-body">
+
+                <form id="guestForm" enctype='text/plain'>
+
                     <div class="form-group">
                         <label for="comment">Commentaar</label>
                         <input id="comment" type="text" class="form-control" placeholder="Commentaar">
@@ -39,30 +65,25 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Voeg toe</button>
-                </div>
-            </form>
-        </p>
+                </form>
 
-        <div class="card">
-            <div class="card-header">
-                Orders
             </div>
-            <div class="card-body">
-                <table id="orderTable">
-                    <thead>
-                        <tr>
-                            <th data-data="id">id</th>
-                            <th data-data="ready">isReady</th>
-                            <th data-data="comment">Comment</th>
-                        </tr>
-                    </thead>
-                </table>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
+                <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-default" id="btnclose" onclick="deselect()" data-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>
-    <script>
-        var table = $('#orderTable').DataTable({
+</div>
+</div>
+<script>
+        var _tableElement = $('#orderTable');
+        var _modalElement = $('#entryModal');
+
+        var _dataTable = _tableElement.DataTable({
             ajax: {
                 "url": "/api/orders/",
                 "dataSrc": "",
@@ -70,24 +91,55 @@
             },
         });
 
-        $('#add-form').submit(function(event) {
-            event.preventDefault();
+        _tableElement.on('click', 'tr', function () {
+            _tableElement.find('tr.selected').removeClass('selected');
+            $(this).toggleClass('selected');
 
-            var order = {
-                comment: $("#comment").val(),
-                ready: $("#ready").is(':checked'),
-            };
+            var data = _dataTable.row(this).data();
 
-            $.ajax({
-                contentType : "application/json",
-                url: '/api/orders/save/',
-                type: "post",
-                data: JSON.stringify(order),
-                success: function() {
-                    table.ajax.reload();
-                },
+            if(!data) {
+                console.error('unable to retrieve data');
+                return;
+            }
+
+            $.get('/api/orders/' + data.id, function(data) {
+                if(!data) return;
+
+                openModalForObject(data);
             });
+
         });
+
+        function openModalForObject(data) {
+            var _commentField = _modalElement.find('#comment');
+            var _readyField   = _modalElement.find('#ready');
+
+            _commentField.val(data.comment);
+            _readyField.prop('checked', data.ready);
+
+            _modalElement.find('#modal-title').html('Edit Order');
+
+            _modalElement.find('#btnsubmit').one('click', function() {
+                var saveData = {
+                    id: data.id,
+                    comment: _commentField.val(),
+                    ready: _readyField.is(':checked'),
+                };
+
+                $.ajax({
+                    contentType : 'application/json',
+                    url: '/api/orders/save/',
+                    type: 'post',
+                    data: JSON.stringify(saveData),
+                    success: function() {
+                        _modalElement.modal('hide');
+                        _dataTable.ajax.reload();
+                    },
+                });
+            });
+
+            _modalElement.modal('show');
+        }
     </script>
 </body>
 </html>
