@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/orders")
 public class OrderController {
-    private static final int PAGE_SIZE = 30;
-
     @Autowired
     private OrderManager orderManager;
 
