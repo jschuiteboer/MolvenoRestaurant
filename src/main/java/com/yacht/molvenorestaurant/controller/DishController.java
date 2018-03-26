@@ -19,7 +19,7 @@ public class DishController {
 
     @GetMapping()
     public Dish getOne(@PathVariable long id) {
-        return dishManager.getOne(id)
+        return dishManager.getOne(id);
     }
 
     @PostMapping("save")
