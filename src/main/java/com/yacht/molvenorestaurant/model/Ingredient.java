@@ -1,12 +1,30 @@
 package com.yacht.molvenorestaurant.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.function.Supplier;
 
+@Entity
 public class Ingredient {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String ingredientName;
     private int minimumStock;
     private int stock;
     private EAllergy allergy;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Transient
     private Supplier supplier;
 
     public boolean isOutOfStock()
@@ -62,6 +80,6 @@ public class Ingredient {
     }
 
     public void setSupplier(Supplier supplier) {
-        supplier = supplier;
+        this.supplier = supplier;
     }
 }
