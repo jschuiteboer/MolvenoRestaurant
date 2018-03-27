@@ -1,27 +1,26 @@
 package com.yacht.molvenorestaurant.business;
 
 import com.yacht.molvenorestaurant.model.Ingredient;
+import com.yacht.molvenorestaurant.repository.IIngredientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-
+@Component
 public class IngredientManager {
-    private ArrayList<Ingredient> ingredientList;
+    @Autowired
+    private IIngredientRepository ingredientRepository;
 
-    public void addIngredient(Ingredient ingredient) {
-        ingredientList.add(ingredient);
+    public Iterable<Ingredient> getAll(){ return ingredientRepository.findAll();}
+
+    public Ingredient getOne(Long id) {
+        return ingredientRepository.findOne(id);
     }
 
-    public void removeIngredient(Ingredient ingredient){
-        ingredientList.remove(ingredient);
+    public Ingredient saveIngredient(Ingredient ingredient) {
+        return this.ingredientRepository.save(ingredient);
     }
 
-    public void updateIngredient(Ingredient ingredient, String name) {
-        for (Ingredient oldIngredient : ingredientList) {
-            if (oldIngredient.getIngredientName().equals(name)) {
-                ingredientList.add(ingredientList.indexOf(oldIngredient), ingredient);
-            }
-        }
+    public void deleteIngredient(Long id) {
+        this.ingredientRepository.delete(id);
     }
-
-
 }
