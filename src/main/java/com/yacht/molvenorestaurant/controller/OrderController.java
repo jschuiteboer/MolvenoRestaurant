@@ -21,7 +21,7 @@ public class OrderController {
         return this.orderManager.getOne(id);
     }
 
-    @PostMapping("save")
+    @PostMapping()
     public Order saveOrder(@RequestBody Order order) {
         return this.orderManager.saveOrder(order);
     }
