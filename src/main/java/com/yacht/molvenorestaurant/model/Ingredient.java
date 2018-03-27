@@ -80,6 +80,6 @@ public class Ingredient {
     }
 
     public void setSupplier(Supplier supplier) {
-        supplier = supplier;
+        this.supplier = supplier;
     }
 }
