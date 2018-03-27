@@ -5,9 +5,9 @@
     <table id="dishTable" class="display">
         <thead>
         <tr>
-            <th data-data="id">id</th>
             <th data-data="name">Name</th>
-            <th data-data="price">Price</th>
+            <th data-data="price">Price in €</th>
+            <th data-data="description">Description</th>
         </tr>
         </thead>
     </table>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="modal-body">
 
-
+                    <p>Coole dingen</p>
 
                 </div>
                 <div class="modal-footer">
@@ -47,7 +47,7 @@
 
     var _dataTable = _tableElement.DataTable({
     ajax: {
-    url: '/api/ingredients/',
+    url: _restEndpoint,
     dataSrc: "",
     type: "GET",
     },

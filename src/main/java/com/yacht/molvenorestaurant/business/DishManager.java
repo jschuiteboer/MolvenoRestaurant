@@ -5,6 +5,10 @@ import com.yacht.molvenorestaurant.repository.IDishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.util.Random;
+
 @Component
 public class DishManager {
 
@@ -29,6 +33,21 @@ public class DishManager {
 
     public void deleteDish(Long id) {
         dishRepository.delete(id);
+    }
+
+    @PostConstruct
+    private void createSomeTestData() {
+        Random rand = new Random();
+
+        for(int i = 0; i < 50; ++i) {
+            Dish dish = new Dish();
+
+            dish.setPrice(new BigDecimal(rand.nextInt(100)));
+            dish.setName("Dish #" + i);
+            dish.setDescription("Order " + i + " " + Integer.toHexString(dish.hashCode()));
+
+            this.saveDish(dish);
+        }
     }
 }
 
