@@ -14,21 +14,21 @@ public class DishController {
 
     @GetMapping()
     public Iterable<Dish> getAll() {
-        return dishManager.getAll();
+        return this.dishManager.getAll();
     }
 
-    @GetMapping()
+    @GetMapping("{id}")
     public Dish getOne(@PathVariable long id) {
-        return dishManager.getOne(id);
+        return this.dishManager.getOne(id);
     }
 
-    @PostMapping("save")
+    @PostMapping()
     public Dish saveDish (@RequestBody Dish dish){
-        return dishManager.saveDish(dish);
+        return this.dishManager.saveDish(dish);
     }
 
     @DeleteMapping("{id}")
     public void deleteDish(@PathVariable long id){
-        dishManager.deleteDish(id);
+        this.dishManager.deleteDish(id);
     }
 }
