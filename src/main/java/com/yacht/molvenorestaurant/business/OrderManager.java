@@ -14,11 +14,11 @@ public class OrderManager {
     private IOrderRepository orderRepository;
 
     public Iterable<Order> getAll() {
-        return orderRepository.findAll();
+        return this.orderRepository.findAll();
     }
 
     public Order getOne(Long id) {
-        return orderRepository.findOne(id);
+        return this.orderRepository.findOne(id);
     }
 
     public Order saveOrder(Order order) {

@@ -12,19 +12,19 @@ public class DishManager {
     private IDishRepository dishRepository;
 
     public Iterable<Dish> getAll() {
-        return dishRepository.findAll();
+        return this.dishRepository.findAll();
     }
 
     public Dish getOne(Long id){
-        return dishRepository.findOne(id);
+        return this.dishRepository.findOne(id);
     }
 
     public Dish saveDish(Dish dish) {
-        return dishRepository.save(dish);
+        return this.dishRepository.save(dish);
     }
 
     public Dish updateDish(Dish dish){
-        return dishRepository.save(dish);
+        return this.dishRepository.save(dish);
     }
 
     public void deleteDish(Long id) {
