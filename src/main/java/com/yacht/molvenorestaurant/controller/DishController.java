@@ -22,7 +22,7 @@ public class DishController {
         return this.dishManager.getOne(id);
     }
 
-    @PostMapping("save")
+    @PostMapping()
     public Dish saveDish (@RequestBody Dish dish){
         return this.dishManager.saveDish(dish);
     }
