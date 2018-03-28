@@ -17,7 +17,7 @@ public class DishController {
         return dishManager.getAll();
     }
 
-    @GetMapping()
+    @GetMapping("{id}")
     public Dish getOne(@PathVariable long id) {
         return dishManager.getOne(id);
     }
