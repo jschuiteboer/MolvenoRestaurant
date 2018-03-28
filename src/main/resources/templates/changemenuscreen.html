@@ -2,6 +2,11 @@
 <div class="container">
     <h1>Dishes</h1>
 
+    <button id="addDishBtn" class="btn btn-primary"> Add Dish </button>
+    <br>
+    <br>
+
+
     <table id="dishTable" class="display">
         <thead>
         <tr>
@@ -12,19 +17,34 @@
         </thead>
     </table>
 
-
     <div id="entryModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
 
-                    <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
+                    <button class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
                     <h3 id="modal-title" class="modal-title">Ingredient</h3>
 
                 </div>
                 <div class="modal-body">
 
-                    <p>Coole dingen</p>
+                    <form enctype='text/plain'>
+
+                        <div class="form-group">
+                            <label for="name">Dish name</label>
+                            <input id="name" type="text" class="form-control" placeholder="Dish name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input id="price" type="number" class="form-control" placeholder="Price">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input id="description" type="text" class="form-control" placeholder="Description">
+                        </div>
+                    </form>
 
                 </div>
                 <div class="modal-footer">
@@ -40,91 +60,5 @@
 
 </div>
 
-<script>
-    var _restEndpoint = '/api/dishes/';
-    var _tableElement = $('#dishTable');
-    var _modalElement = $('#entryModal');
-
-    var _dataTable = _tableElement.DataTable({
-    ajax: {
-    url: _restEndpoint,
-    dataSrc: "",
-    type: "GET",
-    },
-    });
-
-    _tableElement.on('click', 'tr', function () {
-    _tableElement.find('tr.selected').removeClass('selected');
-    $(this).toggleClass('selected');
-
-    var data = _dataTable.row(this).data();
-
-    if(!data) {
-    console.error('unable to retrieve data');
-    return;
-    }
-
-    $.get(_restEndpoint + data.id, function(data) {
-    if(!data) return;
-
-    openModalForObject(data);
-    });
-
-    });
-
-    function openModalForObject(data) {
-    var _commentField = _modalElement.find('#comment');
-    var _readyField   = _modalElement.find('#ready');
-
-    _commentField.val(data.comment);
-    _readyField.prop('checked', data.ready);
-
-    _modalElement.find('#modal-title').html('Edit Ingredient');
-
-    _modalElement.find('#btnsubmit')
-    .off('click')
-    .on('click', function() {
-    var saveData = {
-    id: data.id,
-    comment: _commentField.val(),
-    ready: _readyField.is(':checked'),
-    };
-
-    $.ajax({
-    contentType : 'application/json',
-    url: _restEndpoint,
-    type: 'post',
-    data: JSON.stringify(saveData),
-    success: function() {
-    _modalElement.modal('hide');
-    reloadData();
-    },
-    });
-    });
-
-    _modalElement.find('#btndelete')
-    .off('click')
-    .on('click', function() {
-    var result = confirm('this action can not be undone');
-
-    if(result) {
-    $.ajax({
-    contentType : 'application/json',
-    url: _restEndpoint + data.id,
-    type: 'delete',
-    success: function() {
-    _modalElement.modal('hide');
-    reloadData();
-    },
-    });
-    }
-    });
-
-    _modalElement.modal('show');
-    }
-
-    function reloadData() {
-    _dataTable.ajax.reload();
-    }
-</script>
+<script src="http://localhost:8080/js/changeMenuScreen.js"></script>
 {{>footer}}

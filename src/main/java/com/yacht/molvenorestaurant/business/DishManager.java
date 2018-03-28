@@ -39,11 +39,15 @@ public class DishManager {
     private void createSomeTestData() {
         Random rand = new Random();
 
-        for(int i = 0; i < 50; ++i) {
+        for(int i = 1; i <= 50; ++i) {
             Dish dish = new Dish();
 
             dish.setPrice(new BigDecimal(rand.nextInt(100)));
-            dish.setName("Dish #" + i);
+            if( i >= 0 && i < 10) {
+                dish.setName("Dish #" + 0 + i);
+            }else {
+                dish.setName("Dish #" + i);
+            }
             dish.setDescription("Order " + i + " " + Integer.toHexString(dish.hashCode()));
 
             this.saveDish(dish);
