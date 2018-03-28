@@ -2,6 +2,7 @@ var _restEndpoint = '/api/ingredients/';
 var _tableElement = $('#ingredientTable');
 var _addButton = $('#addButton');
 var _modalElement = $('#entryModal');
+var _deleteElement = $('#btndelete');
 
 var _dataTable = _tableElement.DataTable({
     ajax: {
@@ -107,6 +108,8 @@ function openModalForObject(data,newEntry) {
     }
 
     _modalElement.modal('show');
+    if(newEntry){_deleteElement.hide();}
+    else{_deleteElement.show();}
 }
 
 function reloadData() {
