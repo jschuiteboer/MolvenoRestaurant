@@ -11,6 +11,8 @@
         </tr>
         </thead>
     </table>
+
+    <button id="addButton" class="btn btn-primary">Add ingredient</button>
 </div>
 
 <div id="entryModal" class="modal fade" role="dialog">
@@ -24,20 +26,22 @@
             </div>
             <div class="modal-body">
 
-                <form id="guestForm" enctype='text/plain'>
-
+                <form id="ingredientForm" enctype='text/plain'>
+                    <div ></div>
                     <div class="form-group">
-                        <label for="comment">Commentaar</label>
-                        <input id="comment" type="text" class="form-control" placeholder="Commentaar">
+                        <label for="ingredientName">Name</label>
+                        <input id="ingredientName" type="text" class="form-control" placeholder="ingredientName">
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="ready">
-                        <label class="form-check-label" for="ready">
-                            is klaar
-                        </label>
+                        <label for="minimumStock">Minimum stock</label>
+                        <input id="minimumStock" type="number" class="form-control" placeholder="minimumStock">
                     </div>
 
+                    <div class="form-check">
+                        <label for="stock">Current stock</label>
+                        <input id="stock" type="number" class="form-control" placeholder="stock">
+                    </div>
                 </form>
 
             </div>
@@ -51,92 +55,5 @@
         </div>
     </div>
 </div>
-</div>
-<script>
-        var _restEndpoint = '/api/ingredients/';
-        var _tableElement = $('#ingredientTable');
-        var _modalElement = $('#entryModal');
-
-        var _dataTable = _tableElement.DataTable({
-            ajax: {
-                url: '/api/ingredients/',
-                dataSrc: "",
-                type: "GET",
-            },
-        });
-
-        _tableElement.on('click', 'tr', function () {
-            _tableElement.find('tr.selected').removeClass('selected');
-            $(this).toggleClass('selected');
-
-            var data = _dataTable.row(this).data();
-
-            if(!data) {
-                console.error('unable to retrieve data');
-                return;
-            }
-
-            $.get(_restEndpoint + data.id, function(data) {
-                if(!data) return;
-
-                openModalForObject(data);
-            });
-
-        });
-
-        function openModalForObject(data) {
-            var _commentField = _modalElement.find('#comment');
-            var _readyField   = _modalElement.find('#ready');
-
-            _commentField.val(data.comment);
-            _readyField.prop('checked', data.ready);
-
-            _modalElement.find('#modal-title').html('Edit Ingredient');
-
-            _modalElement.find('#btnsubmit')
-                .off('click')
-                .on('click', function() {
-                    var saveData = {
-                        id: data.id,
-                        comment: _commentField.val(),
-                        ready: _readyField.is(':checked'),
-                    };
-
-                    $.ajax({
-                        contentType : 'application/json',
-                        url: _restEndpoint,
-                        type: 'post',
-                        data: JSON.stringify(saveData),
-                        success: function() {
-                            _modalElement.modal('hide');
-                            reloadData();
-                        },
-                    });
-                });
-
-            _modalElement.find('#btndelete')
-                .off('click')
-                .on('click', function() {
-                    var result = confirm('this action can not be undone');
-
-                    if(result) {
-                        $.ajax({
-                            contentType : 'application/json',
-                            url: _restEndpoint + data.id,
-                            type: 'delete',
-                            success: function() {
-                                _modalElement.modal('hide');
-                                reloadData();
-                            },
-                        });
-                    }
-                });
-
-            _modalElement.modal('show');
-        }
-
-        function reloadData() {
-            _dataTable.ajax.reload();
-        }
-    </script>
+<script src="http://localhost:8080/js/ingredientManagerScreen.js"></script>
 {{>footer}}
