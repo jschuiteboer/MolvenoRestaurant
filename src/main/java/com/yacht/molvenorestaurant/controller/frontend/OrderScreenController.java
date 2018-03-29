@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 
 @Controller
-@RequestMapping("admin/bestellingen")
-public class BestellingSchermController {
+@RequestMapping("admin/orders")
+public class OrderScreenController {
 
     @GetMapping()
     public String index(Map<String, Object> model){
-        return "bestellingscherm";
+        return "orderscreen";
     }
 }
