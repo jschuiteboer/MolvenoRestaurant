@@ -6,7 +6,7 @@ var _deleteElement = $('#btndelete');
 
 var _dataTable = _tableElement.DataTable({
     ajax: {
-        url: '/api/ingredients/',
+        url: _restEndpoint,
         dataSrc: "",
         type: "GET",
     },
@@ -14,7 +14,7 @@ var _dataTable = _tableElement.DataTable({
 
 _addButton.on('click', function(){
     openModalForObject({},true);
-})
+});
 
 _tableElement.on('click', 'tr', function () {
     _tableElement.find('tr.selected').removeClass('selected');
@@ -62,7 +62,7 @@ function openModalForObject(data,newEntry) {
             var saveData = {
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val(),
+                            stock: _stockField.val()
                         };
             }
             else{
@@ -70,7 +70,7 @@ function openModalForObject(data,newEntry) {
                             id: data.id,
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val(),
+                            stock: _stockField.val()
                         };
             }
 
