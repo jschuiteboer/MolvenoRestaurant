@@ -2,7 +2,7 @@
 <div class="container">
     <h1>Orders</h1>
 
-    <table id="orderTable" class="display">
+    <table id="orderTable" class="table table-bordered table-hover">
         <thead>
         <tr>
             <th data-data="id">id</th>
@@ -66,9 +66,6 @@
     });
 
     _tableElement.on('click', 'tr', function () {
-        _tableElement.find('tr.selected').removeClass('selected');
-        $(this).toggleClass('selected');
-
         var data = _dataTable.row(this).data();
 
         if(!data) {
