@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 
 @Controller
-@RequestMapping("admin/magazijn")
-public class IngrediëntenMagazijnSchermController {
+@RequestMapping("admin/storage")
+public class IngredientStorageScreenController {
 
     @GetMapping()
     public String index(Map<String, Object> model){
-        return "IngrediëntenMagazijnScherm";
+        return "ingredientstoragescreen";
     }
 }
