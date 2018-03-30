@@ -21,7 +21,7 @@ public class IngredientController {
         return this.ingredientManager.getOne(id);
     }
 
-    @PostMapping("save")
+    @PostMapping()
     public Ingredient saveIngredient(@RequestBody Ingredient ingredient) {
         return this.ingredientManager.saveIngredient(ingredient);
     }

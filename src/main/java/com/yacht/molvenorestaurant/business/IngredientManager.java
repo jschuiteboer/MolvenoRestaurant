@@ -24,3 +24,4 @@ public class IngredientManager {
         this.ingredientRepository.delete(id);
     }
 }
+
