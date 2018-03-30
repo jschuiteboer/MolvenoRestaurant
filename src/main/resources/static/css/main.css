@@ -1,0 +1,25 @@
+body {
+    background-color: #f8f8f8;
+}
+
+.white-bg {
+    background-color: #fff  ;
+}
+
+.mrg-top-30{
+    margin-top: 3px;
+}
+
+.header img{
+    float: left;
+    margin-right: 10px;
+}
+
+.header {
+    height: 110px;
+}
+
+.header h1{
+    padding-top: 30px;
+
+}
