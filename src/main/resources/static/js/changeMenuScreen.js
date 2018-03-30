@@ -23,9 +23,6 @@ _dishButton.on('click', function(){
 
 
 _tableElement.on('click', 'tr', function () {
-    _tableElement.find('tr.selected').removeClass('selected');
-    $(this).toggleClass('selected');
-
     var data = _dataTable.row(this).data();
 
     if(!data) {
