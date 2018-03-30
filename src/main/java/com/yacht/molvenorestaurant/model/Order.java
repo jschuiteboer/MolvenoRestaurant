@@ -2,11 +2,9 @@ package com.yacht.molvenorestaurant.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "order_") // renamed because sql is conflicting with the order keyword
@@ -14,10 +12,12 @@ public class Order {
     @Id
     @GeneratedValue
     private Long ID;
-    //TODO: don't ignore this field
-    @Transient
-    private List<Dish> orderList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Dish> orderList = new ArrayList<>();
+
     private String comment;
+
     private boolean isReady;
 
     @JsonIgnore

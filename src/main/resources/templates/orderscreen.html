@@ -4,40 +4,46 @@
 
     <table id="orderTable" class="table table-bordered table-hover">
         <thead>
-        <tr>
-            <th data-data="id">id</th>
-            <th data-data="ready">isReady</th>
-            <th data-data="comment">Comment</th>
-        </tr>
+            <tr>
+                <th data-data="id">id</th>
+                <th data-data="ready">isReady</th>
+                <th data-data="comment">Comment</th>
+            </tr>
         </thead>
     </table>
 
     <div id="entryModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
 
-                    <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h3 id="modal-title" class="modal-title">Order</h3>
 
                 </div>
                 <div class="modal-body">
 
-                    <form id="guestForm" enctype='text/plain'>
+                    <div class="form-group">
+                        <label for="comment">Commentaar</label>
+                        <input id="comment" type="text" class="form-control" placeholder="Commentaar">
+                    </div>
 
-                        <div class="form-group">
-                            <label for="comment">Commentaar</label>
-                            <input id="comment" type="text" class="form-control" placeholder="Commentaar">
-                        </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="ready">
+                        <label class="form-check-label" for="ready">
+                            is klaar
+                        </label>
+                    </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="ready">
-                            <label class="form-check-label" for="ready">
-                                is klaar
-                            </label>
-                        </div>
-
-                    </form>
+                    <table id="dishTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th data-data="id">id</th>
+                                <th data-data="name">name</th>
+                                <th data-data="price">price</th>
+                            </tr>
+                        </thead>
+                    </table>
 
                 </div>
                 <div class="modal-footer">
@@ -57,16 +63,20 @@
     var _tableElement = $('#orderTable');
     var _modalElement = $('#entryModal');
 
-    var _dataTable = _tableElement.DataTable({
+    var _orderDataTable = _tableElement.DataTable({
         ajax: {
-            url: '/api/orders/',
+            url: _restEndpoint,
             dataSrc: "",
             type: "GET",
         },
     });
 
+    _modalElement.find('#dishTable').DataTable({
+        paging: false,
+    });
+
     _tableElement.on('click', 'tr', function () {
-        var data = _dataTable.row(this).data();
+        var data = _orderDataTable.row(this).data();
 
         if(!data) {
             console.error('unable to retrieve data');
@@ -81,20 +91,25 @@
 
     });
 
-    function openModalForObject(data) {
+    function openModalForObject(order) {
         var _commentField = _modalElement.find('#comment');
         var _readyField   = _modalElement.find('#ready');
 
-        _commentField.val(data.comment);
-        _readyField.prop('checked', data.ready);
+        _commentField.val(order.comment);
+        _readyField.prop('checked', order.ready);
 
         _modalElement.find('#modal-title').html('Edit Order');
+
+        var _dishTable = _modalElement.find('#dishTable').DataTable();
+        _dishTable.clear();
+        _dishTable.rows.add(order.orderList);
+        _dishTable.draw();
 
         _modalElement.find('#btnsubmit')
             .off('click')
             .on('click', function() {
                 var saveData = {
-                    id: data.id,
+                    id: order.id,
                     comment: _commentField.val(),
                     ready: _readyField.is(':checked'),
                 };
@@ -119,7 +134,7 @@
                 if(result) {
                     $.ajax({
                         contentType : 'application/json',
-                        url: _restEndpoint + data.id,
+                        url: _restEndpoint + order.id,
                         type: 'delete',
                         success: function() {
                             _modalElement.modal('hide');
@@ -133,7 +148,7 @@
     }
 
     function reloadData() {
-        _dataTable.ajax.reload();
+        _orderDataTable.ajax.reload();
     }
 </script>
 {{>footer}}
