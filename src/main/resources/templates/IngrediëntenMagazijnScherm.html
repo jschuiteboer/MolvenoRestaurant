@@ -1,15 +1,11 @@
 {{>header}}
 <div class="container">
     <h1>Ingredients</h1>
-
-    <table id="ingredientTable" class="display" style="width:100%">
-        <thead>
-        <tr>
-            <th data-data="id">id</th>
-            <th data-data="ingredientName">Naam</th>
-            <th data-data="stock">Voorraad</th>
-        </tr>
-        </thead>
+    <th data-data="id">id</th>
+    <th data-data="ingredientName">Naam</th>
+    <th data-data="stock">Voorraad</th>
+    </tr>
+    </thead>
     </table>
 </div>
 
@@ -139,4 +135,8 @@
             _dataTable.ajax.reload();
         }
     </script>
+    <table id="ingredientTable" class="display" style="width:100%">
+        <thead>
+        <tr>
+
 {{>footer}}

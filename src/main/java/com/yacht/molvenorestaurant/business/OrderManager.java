@@ -29,8 +29,8 @@ public class OrderManager {
         this.orderRepository.delete(id);
     }
 
-    @PostConstruct
-    private void createSomeTestData() {
+  @PostConstruct
+   private void createSomeTestData() {
         Random rand = new Random();
 
         for(int i = 0; i < 50; ++i) {
@@ -40,5 +40,5 @@ public class OrderManager {
 
             this.saveOrder(order);
         }
-    }
+  }
 }

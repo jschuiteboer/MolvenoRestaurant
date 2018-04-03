@@ -1,11 +1,13 @@
 {{>header}}
 <div class="container">
+    <h1>Menu</h1>
 
-
-    <table id="orderTable" class="display">
+    <table id="menuTable" class="display">
         <thead>
         <tr>
-
+            <th data-data="id">id</th>
+            <th data-data="name">Name</th>
+            <th data-data="comment">Price</th>
         </tr>
         </thead>
     </table>
@@ -15,22 +17,102 @@
             <div class="modal-content">
                 <div class="modal-header">
 
-
+                    <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
+                    <h3 id="modal-title" class="modal-title">Menu</h3>
 
                 </div>
                 <div class="modal-body">
 
+                    <form id="guestForm" enctype='text/plain'>
+
+                        <div class="form-group">
+                            <label for="comment">Price</label>
+                            <input id="comment" type="text" class="form-control" placeholder="Commentaar">
+                        </div>
 
 
+                    </form>
 
                 </div>
                 <div class="modal-footer">
 
+                    <button id="btnsubmit" class="btn btn-primary">Order</button>
+                    <button id="btnclose" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="script.js"></script>
+<script>
+    var _restEndpoint = '/api/dishes/';
+    var _tableElement = $('#menuTable');
+    var _modalElement = $('#entryModal');
+
+    var _dataTable = _tableElement.DataTable({
+        ajax: {
+            url: '/api/dishes/',
+            dataSrc: "",
+            type: "GET",
+        },
+    });
+
+    _tableElement.on('click', 'tr', function () {
+        _tableElement.find('tr.selected').removeClass('selected');
+        $(this).toggleClass('selected');
+
+        var data = _dataTable.row(this).data();
+
+        if(!data) {
+            console.error('unable to retrieve data');
+            return;
+        }
+
+        $.get(_restEndpoint + data.id, function(data) {
+            if(!data) return;
+
+            openModalForObject(data);
+        });
+
+    });
+
+    function openModalForObject(data) {
+        var _commentField = _modalElement.find('#comment');
+        var _nameField   = _modalElement.find('#name');
+
+        _commentField.val(data.comment);
+        _nameField.prop('checked', data.name);
+
+        _modalElement.find('#modal-title').html('Edit Order');
+
+        _modalElement.find('#btnsubmit')
+            .off('click')
+            .on('click', function() {
+                var saveData = {
+                    id: data.id,
+                    comment: _commentField.val(),
+                    name: _nameField.is(':checked'),
+                };
+
+                $.ajax({
+                    contentType : 'application/json',
+                    url: _restEndpoint,
+                    type: 'post',
+                    data: JSON.stringify(saveData),
+                    success: function() {
+                        _modalElement.modal('hide');
+                        reloadData();
+                    },
+                });
+            });
+
+
+
+        _modalElement.modal('show');
+    }
+
+    function reloadData() {
+        _dataTable.ajax.reload();
+    }
+</script>
 {{>footer}}

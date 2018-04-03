@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 
 @Controller
-@RequestMapping("public/menu")
+@RequestMapping("menu")
 public class MenuController {
 
     @GetMapping()
