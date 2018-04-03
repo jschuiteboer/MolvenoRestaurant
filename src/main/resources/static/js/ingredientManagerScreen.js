@@ -36,16 +36,22 @@ function openModalForObject(data,newEntry) {
     var _ingredientNameField = _modalElement.find('#ingredientName');
     var _minimumStock   = _modalElement.find('#minimumStock');
     var _stockField   = _modalElement.find('#stock');
+    var _priceField   = _modalElement.find('#price');
+    var _unitField   = _modalElement.find('#unit');
 
     if(!newEntry){
         _ingredientNameField.val(data.ingredientName);
         _minimumStock.val(data.minimumStock);
-        _stockField.val(data.stock)
+        _stockField.val(data.stock);
+        _priceField.val(data.price);
+        _unitField.val(data.unit);
     }
     else{
             _ingredientNameField.val('');
             _minimumStock.val('');
             _stockField.val('');
+            _priceField.val('');
+            _unitField.val('');
     }
 
     if(newEntry){_modalElement.find('#modal-title').html('New Ingredient')}
@@ -59,7 +65,9 @@ function openModalForObject(data,newEntry) {
             var saveData = {
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val()
+                            stock: _stockField.val(),
+                            price: _priceField.val(),
+                            unit: _unitField.val()
                         };
             }
             else{
@@ -67,10 +75,11 @@ function openModalForObject(data,newEntry) {
                             id: data.id,
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val()
+                            stock: _stockField.val(),
+                            price: _priceField.val(),
+                            unit: _unitField.val()
                         };
             }
-
 
             $.ajax({
                 contentType : 'application/json',
