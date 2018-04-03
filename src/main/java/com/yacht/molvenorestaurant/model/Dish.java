@@ -1,9 +1,6 @@
 package com.yacht.molvenorestaurant.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,11 +13,11 @@ public class Dish {
 
     private String name;
     private BigDecimal price;
-
-    //TODO IngredientList fill in
-    @Transient
-    private List<Ingredient> ingredientList;
     private String description;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Ingredient> ingredientList;
+
 
     public Dish() {
     }
