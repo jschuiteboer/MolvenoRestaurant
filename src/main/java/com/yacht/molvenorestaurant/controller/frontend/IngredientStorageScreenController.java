@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("admin/storage")
-public class IngredientStorageScreenController {
+public class IngredientStorageScreenController extends AdminController {
 
     @GetMapping()
     public String index(Map<String, Object> model){
