@@ -1,10 +1,9 @@
 var _restEndpoint = '/api/dishes/';
-var _tableElementS = $('#starterTable');
-var _tableElementM = $('#mainTable');
-var _tableElementD = $('#dessertTable');
-var _tableElementDr = $('#drinksTable');
-var _tableElementAl = $('#alcoholTable');
-var _deleteElement = $('#btndelete');
+var _tableElementStarter = $('#starterTable');
+var _tableElementMain = $('#mainTable');
+var _tableElementDessert = $('#dessertTable');
+var _tableElementDrinks = $('#drinksTable');
+var _tableElementAlcohol = $('#alcoholTable');
 
 // Define Modal
 var _modalElement = $('#entryModal');
@@ -28,7 +27,7 @@ _dishButton.on('click', function(){
 });
 
 
-_tableElementS.on('click', 'tr', function () {
+_tableElementSarter.on('click', 'tr', function () {
     var data = _dataTable.row(this).data();
 
     if(!data) {
