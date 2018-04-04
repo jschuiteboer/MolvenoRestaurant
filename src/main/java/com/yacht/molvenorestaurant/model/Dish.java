@@ -14,6 +14,7 @@ public class Dish {
     private String name;
     private BigDecimal price;
     private String description;
+    private String category;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
@@ -28,6 +29,14 @@ public class Dish {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getName() {

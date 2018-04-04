@@ -44,15 +44,18 @@ function openModalForObject(dish,newEntry) {
     var _nameField = _modalElement.find('#name');
     var _priceField = _modalElement.find('#price');
     var _descriptionField = _modalElement.find('#description');
+    var _categoryField = _modalElement.find('#category');
 
     if(!newEntry){
         _nameField.val(dish.name);
         _priceField.val(dish.price);
         _descriptionField.val(dish.description);
+        _categoryField.val(dish.category);
     }else{
         _nameField.val("");
         _priceField.val("");
         _descriptionField.val("");
+        _categoryField.val("");
         var _ingredientDataTable = $('#ingredientTable').DataTable();
         _ingredientDataTable.clear().draw();
     }
@@ -75,19 +78,20 @@ function openModalForObject(dish,newEntry) {
     .off('click')
     .on('click', function() {
 
-
         if(newEntry){
             var saveData = {
                 name: _nameField.val(),
                 price: _priceField.val(),
-                description: _descriptionField.val()
+                description: _descriptionField.val(),
+                category: _categoryField.val()
             };
         }else{
             var saveData = {
                 id: dish.id,
                 name: _nameField.val(),
                 price: _priceField.val(),
-                description: _descriptionField.val()
+                description: _descriptionField.val(),
+                category: _categoryField.val()
             };
         }
 
