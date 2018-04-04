@@ -3,6 +3,8 @@ var _tableElement = $('#ingredientTable');
 var _addButton = $('#addButton');
 var _modalElement = $('#entryModal');
 var _deleteElement = $('#btndelete');
+var _confirmElement = $('#confirmModal');
+var _confirmButton = $('#btnconfirm');
 
 var _dataTable = _tableElement.DataTable({
     ajax: {
@@ -71,7 +73,6 @@ function openModalForObject(data,newEntry) {
                         };
             }
 
-
             $.ajax({
                 contentType : 'application/json',
                 url: _restEndpoint,
@@ -88,19 +89,22 @@ function openModalForObject(data,newEntry) {
         _modalElement.find('#btndelete')
             .off('click')
             .on('click', function() {
-                var result = confirm('this action can not be undone');
-
-                if(result) {
-                    $.ajax({
-                        contentType : 'application/json',
-                        url: _restEndpoint + data.id,
-                        type: 'delete',
-                        success: function() {
-                            _modalElement.modal('hide');
+                var confirmResult= false;
+                _confirmElement.modal('show');
+                _modalElement.modal('hide');
+                _confirmElement.find('#btnconfirm')
+                    .off('click')
+                    .on('click', function(){
+                        $.ajax({
+                            contentType : 'application/json',
+                            url: _restEndpoint + data.id,
+                            type: 'delete',
+                            success: function() {
+                            _confirmElement.modal('hide');
                             reloadData();
-                        },
+                            },
+                        });
                     });
-                }
         });
     }
 
