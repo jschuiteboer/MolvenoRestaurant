@@ -22,9 +22,10 @@
     <table id="ingredientTable" class="table table-bordered table-hover white-bg">
         <thead>
         <tr>
-            <th data-data="id">id</th>
-            <th data-data="ingredientName">Naam</th>
-            <th data-data="stock">Voorraad</th>
+            <th data-data="ingredientName">Name</th>
+            <th data-data="stock">Stock</th>
+            <th data-data="price">Price</th>
+            <th data-data="unit">Unit</th>
         </tr>
         </thead>
     </table>
@@ -58,6 +59,16 @@
                     <div class="form-check">
                         <label for="stock">Current stock</label>
                         <input id="stock" type="number" class="form-control" placeholder="stock">
+                    </div>
+
+                    <div class="form-check">
+                        <label for="price">Price</label>
+                        <input id="price" type="number" class="form-control" placeholder="price">
+                    </div>
+
+                    <div class="form-check">
+                        <label for="unit">Unit</label>
+                        <input id="unit" type="text" class="form-control" placeholder="unit">
                     </div>
                 </form>
 

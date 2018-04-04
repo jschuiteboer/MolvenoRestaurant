@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.math.BigDecimal;
 import java.util.function.Supplier;
 
 @Entity
@@ -14,7 +15,32 @@ public class Ingredient {
     private String ingredientName;
     private int minimumStock;
     private int stock;
+    private BigDecimal price;
     private EAllergy allergy;
+    private String unit;
+    @Transient
+    private Supplier supplier;
+
+    public Ingredient() {
+    }
+
+    public Ingredient(String ingredientName, int minimumStock, int stock, BigDecimal price, EAllergy allergy, String unit, Supplier supplier) {
+        this.ingredientName = ingredientName;
+        this.minimumStock = minimumStock;
+        this.stock = stock;
+        this.price = price;
+        this.allergy = allergy;
+        this.unit = unit;
+        this.supplier = supplier;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     public Long getId() {
         return id;
@@ -24,24 +50,6 @@ public class Ingredient {
         this.id = id;
     }
 
-    @Transient
-    private Supplier supplier;
-
-    public boolean isOutOfStock()
-    {
-        return this.stock <= this.minimumStock;
-    }
-
-    public Ingredient() {
-    }
-
-    public Ingredient(String ingredientName, int minimumStock, int stock, EAllergy allergy, Supplier supplier) {
-        this.ingredientName = ingredientName;
-        this.minimumStock = minimumStock;
-        this.stock = stock;
-        this.allergy = allergy;
-        this.supplier = supplier;
-    }
 
     public String getIngredientName() {
         return ingredientName;
@@ -81,5 +89,13 @@ public class Ingredient {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

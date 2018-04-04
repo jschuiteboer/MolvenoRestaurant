@@ -36,30 +36,43 @@ function openModalForObject(data,newEntry) {
     var _ingredientNameField = _modalElement.find('#ingredientName');
     var _minimumStock   = _modalElement.find('#minimumStock');
     var _stockField   = _modalElement.find('#stock');
+    var _priceField   = _modalElement.find('#price');
+    var _unitField   = _modalElement.find('#unit');
 
+// vult modal aan de hand van of het een geselecteerd opbject of een nieuw object is.
     if(!newEntry){
         _ingredientNameField.val(data.ingredientName);
         _minimumStock.val(data.minimumStock);
-        _stockField.val(data.stock)
+        _stockField.val(data.stock);
+        _priceField.val(data.price);
+        _unitField.val(data.unit);
     }
     else{
             _ingredientNameField.val('');
             _minimumStock.val('');
             _stockField.val('');
+            _priceField.val('');
+            _unitField.val('');
     }
 
+
+//geeft naam aan modal element
     if(newEntry){_modalElement.find('#modal-title').html('New Ingredient')}
     else{_modalElement.find('#modal-title').html('Edit Ingredient');}
 
+// opdracht voor submit knop
     _modalElement.find('#btnsubmit')
         .off('click')
         .on('click', function() {
 
             if(newEntry){
             var saveData = {
+                            id: data.id,
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val()
+                            stock: _stockField.val(),
+                            price: _priceField.val(),
+                            unit: _unitField.val()
                         };
             }
             else{
@@ -67,10 +80,11 @@ function openModalForObject(data,newEntry) {
                             id: data.id,
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val()
+                            stock: _stockField.val(),
+                            price: _priceField.val(),
+                            unit: _unitField.val()
                         };
             }
-
 
             $.ajax({
                 contentType : 'application/json',
