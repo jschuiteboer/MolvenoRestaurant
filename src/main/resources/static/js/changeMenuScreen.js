@@ -118,7 +118,7 @@ function openModalForObject(dish,newEntry) {
             if(result) {
                 $.ajax({
                     contentType : 'application/json',
-                    url: _restEndpoint + data.id,
+                    url: _restEndpoint + dish.id,
                     type: 'delete',
                     success: function() {
                         _modalElement.modal('hide');
