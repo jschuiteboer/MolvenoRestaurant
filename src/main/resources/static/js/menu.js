@@ -1,6 +1,9 @@
 var _restEndpoint = '/api/dishes/';
-var _tableElement = $('#dishTable');
-var _deleteElement = $('#btndelete');
+var _tableElementStarter = $('#starterTable');
+var _tableElementMain = $('#mainTable');
+var _tableElementDessert = $('#dessertTable');
+var _tableElementDrinks = $('#drinksTable');
+var _tableElementAlcohol = $('#alcoholTable');
 
 // Define Modal
 var _modalElement = $('#entryModal');
@@ -8,25 +11,24 @@ var _modalElement = $('#entryModal');
 // Define add Dish button
 var _dishButton = $('#addDishBtn');
 
-var _DishDataTable = _tableElement.DataTable({
+var _dataTable = _tableElementS.DataTable({
     ajax: {
+
         url: _restEndpoint,
         dataSrc: "",
         type: "GET",
+
     },
 });
 
-_modalElement.find('#ingredientTable').DataTable({
-    paging: false,
-});
 
 _dishButton.on('click', function(){
     openModalForObject({},true);
 });
 
 
-_tableElement.on('click', 'tr', function () {
-    var data = _DishDataTable.row(this).data();
+_tableElementSarter.on('click', 'tr', function () {
+    var data = _dataTable.row(this).data();
 
     if(!data) {
         console.error('unable to retrieve data');
@@ -40,24 +42,19 @@ _tableElement.on('click', 'tr', function () {
     });
 });
 
-function openModalForObject(dish,newEntry) {
+function openModalForObject(data,newEntry) {
     var _nameField = _modalElement.find('#name');
     var _priceField = _modalElement.find('#price');
     var _descriptionField = _modalElement.find('#description');
-    var _categoryField = _modalElement.find('#category');
 
     if(!newEntry){
-        _nameField.val(dish.name);
-        _priceField.val(dish.price);
-        _descriptionField.val(dish.description);
-        _categoryField.val(dish.category);
+        _nameField.val(data.name);
+        _priceField.val(data.price);
+        _descriptionField.val(data.description);
     }else{
         _nameField.val("");
         _priceField.val("");
         _descriptionField.val("");
-        _categoryField.val("");
-        var _ingredientDataTable = $('#ingredientTable').DataTable();
-        _ingredientDataTable.clear().draw();
     }
 
     if(newEntry){
@@ -66,32 +63,23 @@ function openModalForObject(dish,newEntry) {
         _modalElement.find('#modal-title').html('Edit Dish');
     }
 
-    if(!newEntry){
-        var _ingredientTable = _modalElement.find('#ingredientTable').DataTable();
-        _ingredientTable.clear();
-        console.log(dish.ingredientList)
-        _ingredientTable.rows.add(dish.ingredientList);
-        _ingredientTable.draw();
-    }
-
     _modalElement.find('#btnsubmit')
     .off('click')
     .on('click', function() {
+
 
         if(newEntry){
             var saveData = {
                 name: _nameField.val(),
                 price: _priceField.val(),
-                description: _descriptionField.val(),
-                category: _categoryField.val()
+                description: _descriptionField.val()
             };
         }else{
             var saveData = {
-                id: dish.id,
+                id: data.id,
                 name: _nameField.val(),
                 price: _priceField.val(),
-                description: _descriptionField.val(),
-                category: _categoryField.val()
+                description: _descriptionField.val()
             };
         }
 
@@ -118,7 +106,7 @@ function openModalForObject(dish,newEntry) {
             if(result) {
                 $.ajax({
                     contentType : 'application/json',
-                    url: _restEndpoint + dish.id,
+                    url: _restEndpoint + data.id,
                     type: 'delete',
                     success: function() {
                         _modalElement.modal('hide');
@@ -137,5 +125,5 @@ function openModalForObject(dish,newEntry) {
 }
 
 function reloadData() {
-    _DishDataTable.ajax.reload();
+    _dataTable.ajax.reload();
 }
