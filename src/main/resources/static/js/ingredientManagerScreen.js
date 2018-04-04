@@ -39,6 +39,7 @@ function openModalForObject(data,newEntry) {
     var _priceField   = _modalElement.find('#price');
     var _unitField   = _modalElement.find('#unit');
 
+// vult modal aan de hand van of het een geselecteerd opbject of een nieuw object is.
     if(!newEntry){
         _ingredientNameField.val(data.ingredientName);
         _minimumStock.val(data.minimumStock);
@@ -54,15 +55,19 @@ function openModalForObject(data,newEntry) {
             _unitField.val('');
     }
 
+
+//geeft naam aan modal element
     if(newEntry){_modalElement.find('#modal-title').html('New Ingredient')}
     else{_modalElement.find('#modal-title').html('Edit Ingredient');}
 
+// opdracht voor submit knop
     _modalElement.find('#btnsubmit')
         .off('click')
         .on('click', function() {
 
             if(newEntry){
             var saveData = {
+                            id: data.id,
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
                             stock: _stockField.val(),
