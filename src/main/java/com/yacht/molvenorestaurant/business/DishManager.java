@@ -11,20 +11,23 @@ import java.math.BigDecimal;
 @Component
 public class DishManager {
 
-    //produces a suggested price from all the selected ingredients
-    //by myltiplying the price with the amount for eacht ingredient
+    @Autowired
+    private IDishRepository dishRepository;
+
+    /**
+     * produces a suggested price from all the selected ingredients
+     * by multiplying the price with the amount for each ingredient
+     */
     public BigDecimal getSuggestedPrice(Dish dish){
         BigDecimal suggestion = new BigDecimal(0);
 
-        for (Ingredient ingredient: this.getIngredientList()) {
-            BigDecimal ingredientPrice = (ingredient.getPrice)*quantity;
+        for (Ingredient ingredient: dish.getIngredientList()) {
+            BigDecimal ingredientPrice = (ingredient.getPrice()).multiply(BigDecimal.valueOf(ingredient.getStock()));
             suggestion = ingredientPrice.add(suggestion);
         }
 
         return suggestion;
     }
-    @Autowired
-    private IDishRepository dishRepository;
 
     public Iterable<Dish> getAll() {
         return this.dishRepository.findAll();
