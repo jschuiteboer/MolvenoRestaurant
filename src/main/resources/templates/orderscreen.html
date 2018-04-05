@@ -16,9 +16,25 @@
                 <th data-data="id">id</th>
                 <th data-data="ready">isReady</th>
                 <th data-data="comment">Comment</th>
+                <th data-data="totalPrice">Price</th>
             </tr>
         </thead>
     </table>
+
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
+                    <h3 id="title" class="modal-title">Are you sure? Deleting this will result in a unreversable change. Once deleted it can never be brought back. So you should be really sure.</h3>
+                </div>
+                <div class class="modal-body">
+                    <button id="btnconfirm" class="btn btn-danger">Yes I am absolutly sure about this!</button>
+                    <button id="btnnotreally" class="btn btn-primary" data-dismiss="modal">Not really, I think I should not delete this.</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="entryModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -70,6 +86,8 @@
     var _restEndpoint = '/api/orders/';
     var _tableElement = $('#orderTable');
     var _modalElement = $('#entryModal');
+    var _confirmElement = $('#confirmModal');
+    var _confirmButton = $('#btnconfirm');
 
     var _orderDataTable = _tableElement.DataTable({
         ajax: {
@@ -137,20 +155,23 @@
         _modalElement.find('#btndelete')
             .off('click')
             .on('click', function() {
-                var result = confirm('this action can not be undone');
-
-                if(result) {
-                    $.ajax({
-                        contentType : 'application/json',
-                        url: _restEndpoint + order.id,
-                        type: 'delete',
-                        success: function() {
-                            _modalElement.modal('hide');
+                var confirmResult= false;
+                _confirmElement.modal('show');
+                _modalElement.modal('hide');
+                _confirmElement.find('#btnconfirm')
+                    .off('click')
+                    .on('click', function(){
+                        $.ajax({
+                            contentType : 'application/json',
+                            url: _restEndpoint + data.id,
+                            type: 'delete',
+                            success: function() {
+                            _confirmElement.modal('hide');
                             reloadData();
-                        },
+                            },
+                        });
                     });
-                }
-            });
+        });
 
         _modalElement.modal('show');
     }
