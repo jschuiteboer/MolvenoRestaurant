@@ -1,6 +1,11 @@
 var _restEndpoint = '/api/dishes/';
-var _tableElement = $('#dishTable');
+var _secondEndpoint = '/api/ingredients/';
+
 var _deleteElement = $('#btndelete');
+
+//Define Tables
+var _dishTableElement = $('#dishTable');
+var _ingredientTableElement = $('#ingredientInStockTable');
 
 // Define Modal
 var _dishModalElement = $('#dishModal');
@@ -10,7 +15,7 @@ var _ingredientModalElement = $('#addIngredientModal');
 var _dishButton = $('#addDishBtn');
 var _ingredientButton = $('#addIngredientBtn')
 
-var _DishDataTable = _tableElement.DataTable({
+var _DishDataTable = _dishTableElement.DataTable({
     ajax: {
         url: _restEndpoint,
         dataSrc: "",
@@ -25,7 +30,7 @@ _dishModalElement.find('#ingredientTable').DataTable({
 });
 
 _ingredientButton.on('click', function(){
-    openModalForIngredients();
+    openModalForIngredients({},true);
 });
 
 _dishButton.on('click', function(){
@@ -33,7 +38,7 @@ _dishButton.on('click', function(){
 });
 
 
-_tableElement.on('click', 'tr', function () {
+_dishTableElement.on('click', 'tr', function () {
     var data = _DishDataTable.row(this).data();
 
     if(!data) {
@@ -49,12 +54,19 @@ _tableElement.on('click', 'tr', function () {
 });
 
 function openModalForIngredients(ingredient){
-    var _addIngredientDataTable = $('#ingredientInStockTable').DataTable();
-    _addIngredientDataTable.clear().draw();
 
     _ingredientModalElement.find('#modal-title').html('Add ingredient to Dish');
 
-    _dishModalElement.modal('show');
+    var _AddIngredientDataTable = _ingredientTableElement.DataTable({
+        ajax: {
+            url: _secondEndpoint,
+            dataSrc: "",
+            type: "GET",
+        },
+    });
+
+    _ingredientModalElement.modal('show');
+
 }
 
 function openModalForObject(dish,newEntry) {
