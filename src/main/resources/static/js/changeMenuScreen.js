@@ -3,10 +3,12 @@ var _tableElement = $('#dishTable');
 var _deleteElement = $('#btndelete');
 
 // Define Modal
-var _modalElement = $('#entryModal');
+var _dishModalElement = $('#dishModal');
+var _ingredientModalElement = $('#addIngredientModal');
 
-// Define add Dish button
+// Define add Dish and ingredient button
 var _dishButton = $('#addDishBtn');
+var _ingredientButton = $('#addIngredientBtn')
 
 var _DishDataTable = _tableElement.DataTable({
     ajax: {
@@ -16,8 +18,14 @@ var _DishDataTable = _tableElement.DataTable({
     },
 });
 
-_modalElement.find('#ingredientTable').DataTable({
+
+_dishModalElement.find('#ingredientTable').DataTable({
     paging: false,
+    searching: false
+});
+
+_ingredientButton.on('click', function(){
+    openModalForIngredients();
 });
 
 _dishButton.on('click', function(){
@@ -40,11 +48,20 @@ _tableElement.on('click', 'tr', function () {
     });
 });
 
+function openModalForIngredients(ingredient){
+    var _addIngredientDataTable = $('#ingredientInStockTable').DataTable();
+    _addIngredientDataTable.clear().draw();
+
+    _ingredientModalElement.find('#modal-title').html('Add ingredient to Dish');
+
+    _dishModalElement.modal('show');
+}
+
 function openModalForObject(dish,newEntry) {
-    var _nameField = _modalElement.find('#name');
-    var _priceField = _modalElement.find('#price');
-    var _descriptionField = _modalElement.find('#description');
-    var _categoryField = _modalElement.find('#category');
+    var _nameField = _dishModalElement.find('#name');
+    var _priceField = _dishModalElement.find('#price');
+    var _descriptionField = _dishModalElement.find('#description');
+    var _categoryField = _dishModalElement.find('#category');
 
     if(!newEntry){
         _nameField.val(dish.name);
@@ -61,20 +78,19 @@ function openModalForObject(dish,newEntry) {
     }
 
     if(newEntry){
-        _modalElement.find('#modal-title').html('New Dish')
+        _dishModalElement.find('#modal-title').html('New Dish')
     }else{
-        _modalElement.find('#modal-title').html('Edit Dish');
+        _dishModalElement.find('#modal-title').html('Edit Dish');
     }
 
     if(!newEntry){
-        var _ingredientTable = _modalElement.find('#ingredientTable').DataTable();
+        var _ingredientTable = _dishModalElement.find('#ingredientTable').DataTable();
         _ingredientTable.clear();
-        console.log(dish.ingredientList)
         _ingredientTable.rows.add(dish.ingredientList);
         _ingredientTable.draw();
     }
 
-    _modalElement.find('#btnsubmit')
+    _dishModalElement.find('#btnsubmit')
     .off('click')
     .on('click', function() {
 
@@ -103,14 +119,14 @@ function openModalForObject(dish,newEntry) {
             type: 'post',
             data: JSON.stringify(saveData),
             success: function() {
-                _modalElement.modal('hide');
+                _dishModalElement.modal('hide');
                 reloadData();
             },
         });
     });
 
     if(!newEntry){
-        _modalElement.find('#btndelete').show()
+        _dishModalElement.find('#btndelete').show()
         .off('click')
         .on('click', function() {
             var result = confirm('this action can not be undone');
@@ -121,14 +137,14 @@ function openModalForObject(dish,newEntry) {
                     url: _restEndpoint + dish.id,
                     type: 'delete',
                     success: function() {
-                        _modalElement.modal('hide');
+                        _dishModalElement.modal('hide');
                         reloadData();
                     },
                 });
             }
         });
     }
-    _modalElement.modal('show');
+    _dishModalElement.modal('show');
     if(newEntry){
         _deleteElement.hide();
     }else{
