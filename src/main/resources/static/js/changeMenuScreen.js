@@ -18,6 +18,7 @@ var _DishDataTable = _tableElement.DataTable({
 
 _modalElement.find('#ingredientTable').DataTable({
     paging: false,
+    searching: false
 });
 
 _dishButton.on('click', function(){
