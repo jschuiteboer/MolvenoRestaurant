@@ -38,6 +38,14 @@ public class Ingredient {
         return price;
     }
 
+    public BigDecimal getTotalWorth(){
+        BigDecimal price = this.getPrice();
+
+        if(price == null) return null;
+
+        return price.multiply(BigDecimal.valueOf(this.getQuantity()));
+    }
+
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
