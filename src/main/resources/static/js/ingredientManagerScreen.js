@@ -37,7 +37,7 @@ _tableElement.on('click', 'tr', function () {
 function openModalForObject(data,newEntry) {
     var _ingredientNameField = _modalElement.find('#ingredientName');
     var _minimumStock   = _modalElement.find('#minimumStock');
-    var _stockField   = _modalElement.find('#stock');
+    var _quantityField   = _modalElement.find('#quantity');
     var _priceField   = _modalElement.find('#price');
     var _unitField   = _modalElement.find('#unit');
 
@@ -45,14 +45,14 @@ function openModalForObject(data,newEntry) {
     if(!newEntry){
         _ingredientNameField.val(data.ingredientName);
         _minimumStock.val(data.minimumStock);
-        _stockField.val(data.stock);
+        _quantityField.val(data.quantity);
         _priceField.val(data.price);
         _unitField.val(data.unit);
     }
     else{
             _ingredientNameField.val('');
             _minimumStock.val('');
-            _stockField.val('');
+            _quantityField.val('');
             _priceField.val('');
             _unitField.val('');
     }
@@ -72,7 +72,7 @@ function openModalForObject(data,newEntry) {
                             id: data.id,
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val(),
+                            quantity: _quantityField.val(),
                             price: _priceField.val(),
                             unit: _unitField.val()
                         };
@@ -82,7 +82,7 @@ function openModalForObject(data,newEntry) {
                             id: data.id,
                             ingredientName: _ingredientNameField.val(),
                             minimumStock: _minimumStock.val(),
-                            stock: _stockField.val(),
+                            quantity: _quantityField.val(),
                             price: _priceField.val(),
                             unit: _unitField.val()
                         };

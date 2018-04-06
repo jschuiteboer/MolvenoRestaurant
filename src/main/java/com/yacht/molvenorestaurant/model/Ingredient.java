@@ -14,7 +14,7 @@ public class Ingredient {
     private Long id;
     private String ingredientName;
     private int minimumStock;
-    private int stock;
+    private int quantity;
     private BigDecimal price;
     private EAllergy allergy;
     private String unit;
@@ -24,10 +24,10 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(String ingredientName, int minimumStock, int stock, BigDecimal price, EAllergy allergy, String unit, Supplier supplier) {
+    public Ingredient(String ingredientName, int minimumStock, int quantity, BigDecimal price, EAllergy allergy, String unit, Supplier supplier) {
         this.ingredientName = ingredientName;
         this.minimumStock = minimumStock;
-        this.stock = stock;
+        this.quantity = quantity;
         this.price = price;
         this.allergy = allergy;
         this.unit = unit;
@@ -54,7 +54,6 @@ public class Ingredient {
         this.id = id;
     }
 
-
     public String getIngredientName() {
         return ingredientName;
     }
@@ -71,12 +70,12 @@ public class Ingredient {
         this.minimumStock = minimumStock;
     }
 
-    public int getStock() {
-        return stock;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public EAllergy getAllergy() {

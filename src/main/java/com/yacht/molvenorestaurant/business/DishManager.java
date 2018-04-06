@@ -22,7 +22,7 @@ public class DishManager {
         BigDecimal suggestion = new BigDecimal(0);
 
         for (Ingredient ingredient: dish.getIngredientList()) {
-            BigDecimal ingredientPrice = (ingredient.getPrice()).multiply(BigDecimal.valueOf(ingredient.getStock()));
+            BigDecimal ingredientPrice = (ingredient.getPrice()).multiply(BigDecimal.valueOf(ingredient.getQuantity()));
             suggestion = ingredientPrice.add(suggestion);
         }
 
@@ -47,6 +47,10 @@ public class DishManager {
 
     public void deleteDish(Long id) {
         dishRepository.delete(id);
+    }
+
+    public Iterable<Dish> getByCategory(String category) {
+        return this.dishRepository.findByCategory(category);
     }
 }
 
