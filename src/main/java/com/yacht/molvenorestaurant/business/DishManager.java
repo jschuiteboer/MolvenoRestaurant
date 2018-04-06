@@ -22,7 +22,7 @@ public class DishManager {
         BigDecimal suggestion = new BigDecimal(0);
 
         for (Ingredient ingredient: dish.getIngredientList()) {
-            BigDecimal ingredientPrice = (ingredient.getPrice()).multiply(BigDecimal.valueOf(ingredient.getStock()));
+            BigDecimal ingredientPrice = (ingredient.getPrice()).multiply(BigDecimal.valueOf(ingredient.getQuantity()));
             suggestion = ingredientPrice.add(suggestion);
         }
 
