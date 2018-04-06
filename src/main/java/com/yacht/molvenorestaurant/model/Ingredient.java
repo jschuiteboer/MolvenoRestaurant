@@ -50,7 +50,6 @@ public class Ingredient {
         this.id = id;
     }
 
-
     public String getIngredientName() {
         return ingredientName;
     }

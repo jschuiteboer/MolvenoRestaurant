@@ -19,7 +19,6 @@ public class Dish {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
 
-
     public Dish() {
     }
 
