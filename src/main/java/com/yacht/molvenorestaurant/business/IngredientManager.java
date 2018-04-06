@@ -10,6 +10,11 @@ public class IngredientManager {
     @Autowired
     private IIngredientRepository ingredientRepository;
 
+    public boolean isOutOfStock(Ingredient ingredient)
+    {
+        return ingredient.getStock() <= ingredient.getMinimumStock();
+    }
+
     public Iterable<Ingredient> getAll(){ return ingredientRepository.findAll();}
 
     public Ingredient getOne(Long id) {
@@ -24,4 +29,3 @@ public class IngredientManager {
         this.ingredientRepository.delete(id);
     }
 }
-

@@ -22,14 +22,30 @@
     <table id="ingredientTable" class="table table-bordered table-hover white-bg">
         <thead>
         <tr>
-            <th data-data="id">id</th>
-            <th data-data="ingredientName">Naam</th>
-            <th data-data="stock">Voorraad</th>
+            <th data-data="ingredientName">Name</th>
+            <th data-data="stock">Stock</th>
+            <th data-data="price">Price</th>
+            <th data-data="unit">Unit</th>
         </tr>
         </thead>
     </table>
 
 
+</div>
+
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
+                <h3 id="title" class="modal-title">Are you sure? Deleting this will result in a unreversable change. Once deleted it can never be brought back. So you should be really sure.</h3>
+            </div>
+            <div class class="modal-body">
+                <button id="btnconfirm" class="btn btn-danger">Yes I am absolutly sure about this!</button>
+                <button id="btnnotreally" class="btn btn-primary" data-dismiss="modal">Not really, I think I should not delete this.</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="entryModal" class="modal fade" role="dialog">
@@ -58,6 +74,16 @@
                     <div class="form-check">
                         <label for="stock">Current stock</label>
                         <input id="stock" type="number" class="form-control" placeholder="stock">
+                    </div>
+
+                    <div class="form-check">
+                        <label for="price">Price</label>
+                        <input id="price" type="number" class="form-control" placeholder="price">
+                    </div>
+
+                    <div class="form-check">
+                        <label for="unit">Unit</label>
+                        <input id="unit" type="text" class="form-control" placeholder="unit">
                     </div>
                 </form>
 

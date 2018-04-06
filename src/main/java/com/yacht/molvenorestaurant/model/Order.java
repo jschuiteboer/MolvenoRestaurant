@@ -1,7 +1,5 @@
 package com.yacht.molvenorestaurant.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,19 +17,6 @@ public class Order {
     private String comment;
 
     private boolean isReady;
-
-    @JsonIgnore
-    public BigDecimal getTotalPrice()
-    {
-        BigDecimal totalPrice = new BigDecimal(0);
-
-        for (Dish dish: orderList) {
-            BigDecimal price = dish.getPrice();
-            totalPrice = totalPrice.add(price);
-        }
-
-        return totalPrice;
-    }
 
     public Order(Long ID, List<Dish> orderList, String comment, boolean isReady) {
         this.ID = ID;
@@ -77,5 +62,19 @@ public class Order {
 
     public void setID(Long ID) {
         this.ID = ID;
+    }
+
+    public BigDecimal getTotalPrice()
+    {
+        BigDecimal totalPrice = new BigDecimal(0);
+
+        for (Dish dish : orderList) {
+            BigDecimal price = dish.getPrice();
+            if(price == null) continue;
+
+            totalPrice = totalPrice.add(price);
+        }
+
+        return totalPrice;
     }
 }
