@@ -22,6 +22,11 @@ public class DishController {
         return this.dishManager.getOne(id);
     }
 
+    @GetMapping("/cat/{category}")
+    public Iterable<Dish> getByCategory(@PathVariable String category) {
+        return this.dishManager.getByCategory(category);
+    }
+
     @PostMapping()
     public Dish saveDish (@RequestBody Dish dish){
         return this.dishManager.saveDish(dish);

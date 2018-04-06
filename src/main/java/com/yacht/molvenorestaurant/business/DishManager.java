@@ -48,5 +48,9 @@ public class DishManager {
     public void deleteDish(Long id) {
         dishRepository.delete(id);
     }
+
+    public Iterable<Dish> getByCategory(String category) {
+        return this.dishRepository.findByCategory(category);
+    }
 }
 
