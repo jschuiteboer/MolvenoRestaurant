@@ -1,11 +1,12 @@
+//Define Endpoints
 var _restEndpoint = '/api/dishes/';
 var _secondEndpoint = '/api/ingredients/';
 
 var _deleteElement = $('#btndelete');
+var _secondDeleteElement = $('#secondDelete')
 
-//Define Tables
+//Define Table
 var _dishTableElement = $('#dishTable');
-var _ingredientTableElement = $('#ingredientInStockTable');
 
 // Define Modal
 var _dishModalElement = $('#dishModal');
@@ -13,7 +14,8 @@ var _ingredientModalElement = $('#addIngredientModal');
 
 // Define add Dish and ingredient button
 var _dishButton = $('#addDishBtn');
-var _ingredientButton = $('#addIngredientBtn')
+var _ingredientButton = $('#addIngredientBtn');
+var _addIngredientBtn = $('#btnIngredient');
 
 var _DishDataTable = _dishTableElement.DataTable({
     ajax: {
@@ -23,10 +25,13 @@ var _DishDataTable = _dishTableElement.DataTable({
     },
 });
 
-
 _dishModalElement.find('#ingredientTable').DataTable({
     paging: false,
     searching: false
+});
+
+_addIngredientBtn.on('click', function(){
+
 });
 
 _ingredientButton.on('click', function(){
@@ -53,27 +58,41 @@ _dishTableElement.on('click', 'tr', function () {
     });
 });
 
-function openModalForIngredients(ingredient){
+//Open Modal for add ingredient
+function openModalForIngredients(newEntry){
 
-    _ingredientModalElement.find('#modal-title').html('Add ingredient to Dish');
+    if(newEntry){
+        _ingredientModalElement.find('#modal-title').html('Add ingredient to Dish');
+    }else{
+        _ingredientModalElement.find('#modal-title').html('Edit ingredient');
+    }
 
-    var _AddIngredientDataTable = _ingredientTableElement.DataTable({
-        ajax: {
-            url: _secondEndpoint,
-            dataSrc: "",
-            type: "GET",
-        },
+    if(newEntry){
+        _secondDeleteElement.hide();
+    }else{
+        _secondDeleteElement.show();
+    }
+
+    //Put the JSON for ingredientName in the dropdown
+    $.getJSON(_secondEndpoint, function(result){
+        var dropdown = $('#ingredientDropdown');
+        dropdown.empty();
+        $.each(result, function() {
+            dropdown.append($("<option />").val(this.id).text(this.ingredientName));
+        });
     });
 
     _ingredientModalElement.modal('show');
 
 }
 
+//Open the Dish Modal
 function openModalForObject(dish,newEntry) {
     var _nameField = _dishModalElement.find('#name');
     var _priceField = _dishModalElement.find('#price');
     var _descriptionField = _dishModalElement.find('#description');
     var _categoryField = _dishModalElement.find('#category');
+
 
     if(!newEntry){
         _nameField.val(dish.name);
