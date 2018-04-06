@@ -30,9 +30,7 @@ _dishModalElement.find('#ingredientTable').DataTable({
     searching: false
 });
 
-_addIngredientBtn.on('click', function(){
 
-});
 
 _ingredientButton.on('click', function(){
     openModalForIngredients({},true);
@@ -59,7 +57,7 @@ _dishTableElement.on('click', 'tr', function () {
 });
 
 //Open Modal for add ingredient
-function openModalForIngredients(newEntry){
+function openModalForIngredients(ingredient, newEntry){
 
     if(newEntry){
         _ingredientModalElement.find('#modal-title').html('Add ingredient to Dish');
@@ -80,6 +78,24 @@ function openModalForIngredients(newEntry){
         $.each(result, function() {
             dropdown.append($("<option />").val(this.id).text(this.ingredientName));
         });
+    });
+
+    _ingredientModalElement.find('#btnIngredient')
+    .off('click')
+    .on('click', function(){
+        var _dishIngredientListField = _ingredientModalElement.find('#ingredientDropdown');
+        var _dishIngredientQuantityField = _ingredientModalElement.find('#quantity')
+
+        var ingredient = {
+            id: _dishIngredientListField.val(),
+            stock: _dishIngredientQuantityField.val(),
+        };
+
+        var _ingredientTable = _dishModalElement.find('#ingredientTable').DataTable();
+        _ingredientTable.row.add(ingredient);
+        _ingredientTable.draw();
+
+        _ingredientModalElement.modal('hide');
     });
 
     _ingredientModalElement.modal('show');
