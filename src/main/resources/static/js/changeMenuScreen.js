@@ -5,17 +5,19 @@ var _secondEndpoint = '/api/ingredients/';
 var _deleteElement = $('#btndelete');
 var _secondDeleteElement = $('#secondDelete')
 
-//Define Table
-var _dishTableElement = $('#dishTable');
-
 // Define Modal
 var _dishModalElement = $('#dishModal');
 var _ingredientModalElement = $('#addIngredientModal');
 
+//Define Table
+var _dishTableElement = $('#dishTable');
+var _ingredientTableElement = _dishModalElement.find('#ingredientTable');
+
+
+
 // Define add Dish and ingredient button
 var _dishButton = $('#addDishBtn');
 var _ingredientButton = $('#addIngredientBtn');
-var _addIngredientBtn = $('#btnIngredient');
 
 var _DishDataTable = _dishTableElement.DataTable({
     ajax: {
@@ -25,12 +27,10 @@ var _DishDataTable = _dishTableElement.DataTable({
     },
 });
 
-_dishModalElement.find('#ingredientTable').DataTable({
+_ingredientTableElement.DataTable({
     paging: false,
     searching: false
 });
-
-
 
 _ingredientButton.on('click', function(){
     openModalForIngredients({},true);
@@ -40,6 +40,10 @@ _dishButton.on('click', function(){
     openModalForObject({},true);
 });
 
+//_ingredientTableElement.on('click', 'tr', function () {
+//    var data =
+//
+//});
 
 _dishTableElement.on('click', 'tr', function () {
     var data = _DishDataTable.row(this).data();
@@ -77,6 +81,7 @@ function openModalForIngredients(ingredient, newEntry){
         dropdown.empty();
         $.each(result, function() {
             dropdown.append($("<option />").val(this.id).text(this.ingredientName));
+
         });
     });
 
@@ -84,18 +89,26 @@ function openModalForIngredients(ingredient, newEntry){
     .off('click')
     .on('click', function(){
         var _dishIngredientListField = _ingredientModalElement.find('#ingredientDropdown');
-        var _dishIngredientQuantityField = _ingredientModalElement.find('#quantity')
+        var _dishIngredientQuantityField = _ingredientModalElement.find('#quantity');
+        var _dishIngredientName = $("#ingredientDropdown option:selected").text();
+        var _dishIngredientUnitField = _ingredientModalElement.find('#unit');
 
         var ingredient = {
             id: _dishIngredientListField.val(),
             stock: _dishIngredientQuantityField.val(),
+            ingredientName: _dishIngredientName,
+            unit: _dishIngredientUnitField.val(),
         };
 
         var _ingredientTable = _dishModalElement.find('#ingredientTable').DataTable();
         _ingredientTable.row.add(ingredient);
         _ingredientTable.draw();
 
+        console.log(ingredient);
+
+
         _ingredientModalElement.modal('hide');
+
     });
 
     _ingredientModalElement.modal('show');
