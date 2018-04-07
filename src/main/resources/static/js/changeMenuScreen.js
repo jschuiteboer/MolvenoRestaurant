@@ -40,10 +40,9 @@ _dishButton.on('click', function(){
     openModalForObject({},true);
 });
 
-//_ingredientTableElement.on('click', 'tr', function () {
-//    var data =
-//
-//});
+_ingredientTableElement.on('click', 'tr', function () {
+    openModalForIngredients({},false);
+});
 
 _dishTableElement.on('click', 'tr', function () {
     var data = _DishDataTable.row(this).data();
@@ -80,7 +79,7 @@ function openModalForIngredients(ingredient, newEntry){
         var dropdown = $('#ingredientDropdown');
         dropdown.empty();
         $.each(result, function() {
-            dropdown.append($("<option />").val(this.id).text(this.ingredientName));
+            dropdown.append($("<option />").val(this.unit).text(this.ingredientName));
 
         });
     });
@@ -94,10 +93,11 @@ function openModalForIngredients(ingredient, newEntry){
         var _dishIngredientUnitField = _ingredientModalElement.find('#unit');
 
         var ingredient = {
-            id: _dishIngredientListField.val(),
+            //id hier veranderd naar unit net als op regel 82, nu krijgt hij unit binnen in plaats van id.
+            unit: _dishIngredientListField.val(),
             stock: _dishIngredientQuantityField.val(),
             ingredientName: _dishIngredientName,
-            unit: _dishIngredientUnitField.val(),
+        //    unit: _dishIngredientUnitField.val(),
         };
 
         var _ingredientTable = _dishModalElement.find('#ingredientTable').DataTable();
@@ -110,6 +110,14 @@ function openModalForIngredients(ingredient, newEntry){
         _ingredientModalElement.modal('hide');
 
     });
+
+    if(!newEntry){
+        _ingredientModalElement.find('#secondDelete').show()
+        .off('click')
+        .on('click', function() {
+            _ingredientTableElement.row().remove(this);
+        });
+    }
 
     _ingredientModalElement.modal('show');
 
