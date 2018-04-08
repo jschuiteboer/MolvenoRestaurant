@@ -37,7 +37,7 @@ _ingredientButton.on('click', function(){
 });
 
 _dishButton.on('click', function(){
-    openModalForObject({},true);
+    openEditDishModal({},true);
 });
 
 _ingredientTableElement.on('click', 'tr', function () {
@@ -55,7 +55,7 @@ _dishTableElement.on('click', 'tr', function () {
     $.get(_restEndpoint + data.id, function(data) {
         if(!data) return;
 
-        openModalForObject(data, false);
+        openEditDishModal(data, false);
     });
 });
 
@@ -117,7 +117,7 @@ function openModalForIngredients(ingredient, newEntry){
 }
 
 //Open the Dish Modal
-function openModalForObject(dish,newEntry) {
+function openEditDishModal(dish, newEntry) {
     var _nameField = _dishModalElement.find('#name');
     var _priceField = _dishModalElement.find('#price');
     var _descriptionField = _dishModalElement.find('#description');
@@ -156,7 +156,7 @@ function openModalForObject(dish,newEntry) {
     .off('click')
     .on('click', function() {
 
-        var saveData = {
+        var saveDish = {
             name: _nameField.val(),
             price: _priceField.val(),
             description: _descriptionField.val(),
@@ -165,14 +165,14 @@ function openModalForObject(dish,newEntry) {
         };
 
         if(!newEntry){
-            saveData.id = dish.id
+            saveDish.id = dish.id
         }
 
         $.ajax({
             contentType : 'application/json',
             url: _restEndpoint,
             type: 'post',
-            data: JSON.stringify(saveData),
+            data: JSON.stringify(saveDish),
             success: function() {
                 _dishModalElement.modal('hide');
                 reloadData();
