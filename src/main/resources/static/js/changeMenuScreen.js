@@ -167,7 +167,8 @@ function openModalForObject(dish,newEntry) {
                 name: _nameField.val(),
                 price: _priceField.val(),
                 description: _descriptionField.val(),
-                category: _categoryField.val()
+                category: _categoryField.val(),
+                ingredientList: [],
             };
         }else{
             var saveData = {
@@ -175,7 +176,8 @@ function openModalForObject(dish,newEntry) {
                 name: _nameField.val(),
                 price: _priceField.val(),
                 description: _descriptionField.val(),
-                category: _categoryField.val()
+                category: _categoryField.val(),
+                ingredientList: [],
             };
         }
 
