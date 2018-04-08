@@ -79,8 +79,11 @@ function openModalForIngredients(ingredient, newEntry){
         var dropdown = $('#ingredientDropdown');
         dropdown.empty();
         $.each(result, function() {
-            dropdown.append($("<option />").val(this.unit).text(this.ingredientName));
+            var option = $("<option />")
+                .data('ingredient', this) // you can set a data attribute to any value in html/js, even objects references
+                .text(this.ingredientName);
 
+            dropdown.append(option);
         });
     });
 
@@ -89,23 +92,13 @@ function openModalForIngredients(ingredient, newEntry){
     .on('click', function(){
         var _dishIngredientListField = _ingredientModalElement.find('#ingredientDropdown');
         var _dishIngredientQuantityField = _ingredientModalElement.find('#quantity');
-        var _dishIngredientName = $("#ingredientDropdown option:selected").text();
-        var _dishIngredientUnitField = _ingredientModalElement.find('#unit');
 
-        var ingredient = {
-            //id hier veranderd naar unit net als op regel 82, nu krijgt hij unit binnen in plaats van id.
-            unit: _dishIngredientListField.val(),
-            stock: _dishIngredientQuantityField.val(),
-            ingredientName: _dishIngredientName,
-        //    unit: _dishIngredientUnitField.val(),
-        };
+        var ingredient = _dishIngredientListField.find('option:selected').data('ingredient');
+        ingredient.stock = _dishIngredientQuantityField.val();
 
         var _ingredientTable = _dishModalElement.find('#ingredientTable').DataTable();
         _ingredientTable.row.add(ingredient);
         _ingredientTable.draw();
-
-        console.log(ingredient);
-
 
         _ingredientModalElement.modal('hide');
 
@@ -129,19 +122,21 @@ function openModalForObject(dish,newEntry) {
     var _priceField = _dishModalElement.find('#price');
     var _descriptionField = _dishModalElement.find('#description');
     var _categoryField = _dishModalElement.find('#category');
-
+    var _ingredientDataTable = $('#ingredientTable').DataTable();
 
     if(!newEntry){
         _nameField.val(dish.name);
         _priceField.val(dish.price);
         _descriptionField.val(dish.description);
         _categoryField.val(dish.category);
+        _ingredientDataTable.clear();
+        _ingredientDataTable.rows.add(dish.ingredientList);
+        _ingredientDataTable.draw();
     }else{
         _nameField.val("");
         _priceField.val("");
         _descriptionField.val("");
         _categoryField.val("");
-        var _ingredientDataTable = $('#ingredientTable').DataTable();
         _ingredientDataTable.clear().draw();
     }
 
@@ -152,36 +147,26 @@ function openModalForObject(dish,newEntry) {
     }
 
     if(!newEntry){
-        var _ingredientTable = _dishModalElement.find('#ingredientTable').DataTable();
-        _ingredientTable.clear();
-        _ingredientTable.rows.add(dish.ingredientList);
-        _ingredientTable.draw();
+        _ingredientDataTable.clear();
+        _ingredientDataTable.rows.add(dish.ingredientList);
+        _ingredientDataTable.draw();
     }
 
     _dishModalElement.find('#btnsubmit')
     .off('click')
     .on('click', function() {
 
-        if(newEntry){
-            var saveData = {
-                name: _nameField.val(),
-                price: _priceField.val(),
-                description: _descriptionField.val(),
-                category: _categoryField.val(),
-                ingredientList: [],
-            };
-        }else{
-            var saveData = {
-                id: dish.id,
-                name: _nameField.val(),
-                price: _priceField.val(),
-                description: _descriptionField.val(),
-                category: _categoryField.val(),
-                ingredientList: [],
-            };
+        var saveData = {
+            name: _nameField.val(),
+            price: _priceField.val(),
+            description: _descriptionField.val(),
+            category: _categoryField.val(),
+            ingredientList: _ingredientDataTable.rows().data().toArray(),
+        };
+
+        if(!newEntry){
+            saveData.id = dish.id
         }
-
-
 
         $.ajax({
             contentType : 'application/json',
