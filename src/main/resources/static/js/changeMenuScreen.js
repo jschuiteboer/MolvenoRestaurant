@@ -93,11 +93,14 @@ function openModalForIngredients(ingredient, newEntry){
         var _dishIngredientListField = _ingredientModalElement.find('#ingredientDropdown');
         var _dishIngredientQuantityField = _ingredientModalElement.find('#quantity');
 
-        var ingredient = _dishIngredientListField.find('option:selected').data('ingredient');
-        ingredient.stock = _dishIngredientQuantityField.val();
+        var dishIngredientEntry = {
+            id: null,
+            ingredient: _dishIngredientListField.find('option:selected').data('ingredient'),
+            quantity: _dishIngredientQuantityField.val(),
+        };
 
         var _dishIngredientEntryTable = _dishIngredientEntryTableElement.DataTable();
-        _dishIngredientEntryTable.row.add(ingredient);
+        _dishIngredientEntryTable.row.add(dishIngredientEntry);
         _dishIngredientEntryTable.draw();
 
         _ingredientModalElement.modal('hide');
