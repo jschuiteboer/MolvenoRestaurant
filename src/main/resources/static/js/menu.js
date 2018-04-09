@@ -1,4 +1,8 @@
 var _entryModal = $('#entryModal');
+var _ingredientTable = $('#ingredientTable').DataTable({
+    searching: false,
+    paging: false,
+});
 
 $('.dish-table').each(function(i, _tableElement) {
     _tableElement = $(_tableElement);
@@ -23,6 +27,10 @@ $('.dish-table').each(function(i, _tableElement) {
     });
 
     function openModalForDish(dish) {
+        _ingredientTable.clear();
+        _ingredientTable.rows.add(dish.ingredientList);
+        _ingredientTable.draw();
+
         _entryModal.modal('show');
     }
 });
