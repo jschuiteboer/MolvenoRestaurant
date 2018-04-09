@@ -1,12 +1,13 @@
 package com.yacht.molvenorestaurant.business;
 
 import com.yacht.molvenorestaurant.model.Dish;
-import com.yacht.molvenorestaurant.model.Ingredient;
+import com.yacht.molvenorestaurant.model.DishIngredientEntry;
 import com.yacht.molvenorestaurant.repository.IDishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public class DishManager {
@@ -21,9 +22,13 @@ public class DishManager {
     public BigDecimal getSuggestedPrice(Dish dish){
         BigDecimal suggestion = new BigDecimal(0);
 
-        for (Ingredient ingredient: dish.getIngredientList()) {
-            BigDecimal ingredientPrice = (ingredient.getPrice()).multiply(BigDecimal.valueOf(ingredient.getQuantity()));
-            suggestion = ingredientPrice.add(suggestion);
+        List<DishIngredientEntry> ingredientList = dish.getIngredientList();
+
+        if(ingredientList != null) {
+            for (DishIngredientEntry ingredientEntry : ingredientList) {
+                BigDecimal entryTotalPrice = ingredientEntry.getTotalPrice();
+                suggestion = suggestion.add(entryTotalPrice);
+            }
         }
 
         return suggestion;
