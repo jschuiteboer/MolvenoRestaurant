@@ -11,7 +11,7 @@ var _ingredientModalElement = $('#addIngredientModal');
 
 //Define Table
 var _dishTableElement = $('#dishTable');
-var _ingredientTableElement = _dishModalElement.find('#ingredientTable');
+var _dishIngredientEntryTableElement = _dishModalElement.find('#dishIngredientEntryTable');
 
 
 
@@ -27,7 +27,7 @@ var _DishDataTable = _dishTableElement.DataTable({
     },
 });
 
-_ingredientTableElement.DataTable({
+_dishIngredientEntryTableElement.DataTable({
     paging: false,
     searching: false
 });
@@ -40,7 +40,7 @@ _dishButton.on('click', function(){
     openEditDishModal({},true);
 });
 
-_ingredientTableElement.on('click', 'tr', function () {
+_dishIngredientEntryTableElement.on('click', 'tr', function () {
     openModalForIngredients({},false);
 });
 
@@ -96,9 +96,9 @@ function openModalForIngredients(ingredient, newEntry){
         var ingredient = _dishIngredientListField.find('option:selected').data('ingredient');
         ingredient.stock = _dishIngredientQuantityField.val();
 
-        var _ingredientTable = _dishModalElement.find('#ingredientTable').DataTable();
-        _ingredientTable.row.add(ingredient);
-        _ingredientTable.draw();
+        var _dishIngredientEntryTable = _dishIngredientEntryTableElement.DataTable();
+        _dishIngredientEntryTable.row.add(ingredient);
+        _dishIngredientEntryTable.draw();
 
         _ingredientModalElement.modal('hide');
 
@@ -108,7 +108,7 @@ function openModalForIngredients(ingredient, newEntry){
         _ingredientModalElement.find('#secondDelete').show()
         .off('click')
         .on('click', function() {
-            _ingredientTableElement.row().remove(this);
+            _dishIngredientEntryTableElement.row().remove(this);
         });
     }
 
@@ -122,22 +122,22 @@ function openEditDishModal(dish, newEntry) {
     var _priceField = _dishModalElement.find('#price');
     var _descriptionField = _dishModalElement.find('#description');
     var _categoryField = _dishModalElement.find('#category');
-    var _ingredientDataTable = $('#ingredientTable').DataTable();
+    var _dishIngredientEntryDataTable = _dishIngredientEntryTableElement.DataTable();
 
     if(!newEntry){
         _nameField.val(dish.name);
         _priceField.val(dish.price);
         _descriptionField.val(dish.description);
         _categoryField.val(dish.category);
-        _ingredientDataTable.clear();
-        _ingredientDataTable.rows.add(dish.ingredientList);
-        _ingredientDataTable.draw();
+        _dishIngredientEntryDataTable.clear();
+        _dishIngredientEntryDataTable.rows.add(dish.ingredientList);
+        _dishIngredientEntryDataTable.draw();
     }else{
         _nameField.val("");
         _priceField.val("");
         _descriptionField.val("");
         _categoryField.val("");
-        _ingredientDataTable.clear().draw();
+        _dishIngredientEntryDataTable.clear().draw();
     }
 
     if(newEntry){
@@ -147,9 +147,9 @@ function openEditDishModal(dish, newEntry) {
     }
 
     if(!newEntry){
-        _ingredientDataTable.clear();
-        _ingredientDataTable.rows.add(dish.ingredientList);
-        _ingredientDataTable.draw();
+        _dishIngredientEntryDataTable.clear();
+        _dishIngredientEntryDataTable.rows.add(dish.ingredientList);
+        _dishIngredientEntryDataTable.draw();
     }
 
     _dishModalElement.find('#btnsubmit')
@@ -161,7 +161,7 @@ function openEditDishModal(dish, newEntry) {
             price: _priceField.val(),
             description: _descriptionField.val(),
             category: _categoryField.val(),
-            ingredientList: _ingredientDataTable.rows().data().toArray(),
+            ingredientList: _dishIngredientEntryDataTable.rows().data().toArray(),
         };
 
         if(!newEntry){
