@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Courgette');
+
 body {
     background-color: #f8f8f8;
 }
@@ -17,8 +19,13 @@ body {
 
 .header {
     height: 110px;
+    font-family: 'Courgette';
 }
 
 .header h1{
     padding-top: 30px;
+}
+
+.page-header {
+    color: #002060;
 }
