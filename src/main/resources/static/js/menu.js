@@ -53,10 +53,16 @@ $(document).ready(function() {
 
     _btnPlaceOrder.click(function() {
         var _orderList = _orderTable.rows().data().toArray();
-
         var order = {
-            orderList: _orderList,
+            orderList: [],
+            comment: '',
         };
+
+        $.each(_orderList, function(i, dish) {
+            order.orderList.push({
+                id: dish.id,
+            })
+        });
 
         $.ajax({
             contentType : 'application/json',
