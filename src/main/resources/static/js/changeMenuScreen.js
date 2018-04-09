@@ -41,9 +41,9 @@ _dishButton.on('click', function(){
 });
 
 _dishIngredientEntryTableElement.on('click', 'tr', function () {
-    var row = this;
-    var dishIngredientEntry = _DishDataTable.row(row).data();
-    openModalForIngredients(dishIngredientEntry, false, row);
+    var _dishIngredientEntryDataTable = _dishIngredientEntryTableElement.DataTable();
+    var dishIngredientEntry = _dishIngredientEntryDataTable.row(this).data();
+    openModalForIngredients(dishIngredientEntry, false, this);
 });
 
 _dishTableElement.on('click', 'tr', function () {
@@ -63,17 +63,16 @@ _dishTableElement.on('click', 'tr', function () {
 
 //Open Modal for add ingredient
 function openModalForIngredients(dishIngredientEntry, newEntry, row){
+    var _quantityInput = _ingredientModalElement.find('#quantity');
 
     if(newEntry){
         _ingredientModalElement.find('#modal-title').html('Add ingredient to Dish');
+        _secondDeleteElement.hide();
+        _quantityInput.val('');
     }else{
         _ingredientModalElement.find('#modal-title').html('Edit ingredient');
-    }
-
-    if(newEntry){
-        _secondDeleteElement.hide();
-    }else{
         _secondDeleteElement.show();
+        _quantityInput.val(dishIngredientEntry.quantity);
     }
 
     //Put the JSON for ingredientName in the dropdown
