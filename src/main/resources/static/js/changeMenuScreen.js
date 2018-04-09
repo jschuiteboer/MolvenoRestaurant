@@ -2,12 +2,15 @@
 var _restEndpoint = '/api/dishes/';
 var _secondEndpoint = '/api/ingredients/';
 
+//Define Buttons
 var _deleteElement = $('#btndelete');
-var _secondDeleteElement = $('#secondDelete')
+var _secondDeleteElement = $('#secondDelete');
+var _confirmButton = $('#btnconfirm');
 
 // Define Modal
 var _dishModalElement = $('#dishModal');
 var _ingredientModalElement = $('#addIngredientModal');
+var _confirmElement = $('#confirmModal');
 
 //Define Table
 var _dishTableElement = $('#dishTable');
@@ -195,24 +198,28 @@ function openEditDishModal(dish, newEntry) {
     });
 
     if(!newEntry){
-        _dishModalElement.find('#btndelete').show()
-        .off('click')
-        .on('click', function() {
-            var result = confirm('this action can not be undone');
-
-            if(result) {
-                $.ajax({
-                    contentType : 'application/json',
-                    url: _restEndpoint + dish.id,
-                    type: 'delete',
-                    success: function() {
-                        _dishModalElement.modal('hide');
-                        reloadData();
-                    },
-                });
-            }
+        _dishModalElement.find('#btndelete')
+            .off('click')
+            .on('click', function() {
+                _confirmElement.modal('show');
+                _confirmElement.find('#btnconfirm')
+                    .off('click')
+                    .on('click', function(){
+                        $.ajax({
+                            contentType : 'application/json',
+                            url: _restEndpoint + dish.id,
+                            type: 'delete',
+                            success: function() {
+                            _confirmElement.modal('hide');
+                            _dishModalElement.modal('hide');
+                            reloadData();
+                            },
+                        });
+                    });
         });
     }
+
+
     _dishModalElement.modal('show');
     if(newEntry){
         _deleteElement.hide();
