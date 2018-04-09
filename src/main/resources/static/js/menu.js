@@ -11,6 +11,7 @@ $(document).ready(function() {
         searching: false,
         paging: false,
     });
+    var _btnPlaceOrder = $('#btnPlaceOrder');
 
     $('.dish-table').each(function(i, _tableElement) {
         _tableElement = $(_tableElement);
@@ -48,5 +49,24 @@ $(document).ready(function() {
 
             _entryModal.modal('show');
         }
+    });
+
+    _btnPlaceOrder.click(function() {
+        var _orderList = _orderTable.rows().data().toArray();
+
+        var order = {
+            orderList: _orderList,
+        };
+
+        $.ajax({
+            contentType : 'application/json',
+            url: '/api/orders',
+            type: 'post',
+            data: JSON.stringify(order),
+            success: function() {
+                _btnPlaceOrder.disable();
+
+            },
+        });
     });
 });
