@@ -2,6 +2,7 @@ package com.yacht.molvenorestaurant.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,7 @@ public class Dish {
     private String category;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Ingredient> ingredientList;
-
+    private List<DishIngredientEntry> ingredientList = new ArrayList<>();
 
     public Dish() {
     }
@@ -51,11 +51,11 @@ public class Dish {
         this.price = price;
     }
 
-    public List<Ingredient> getIngredientList() {
+    public List<DishIngredientEntry> getIngredientList() {
         return ingredientList;
     }
 
-    public void setIngredientList(List<Ingredient> ingredientList) {
+    public void setIngredientList(List<DishIngredientEntry> ingredientList) {
         this.ingredientList = ingredientList;
     }
 
