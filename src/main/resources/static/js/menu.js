@@ -1,5 +1,6 @@
 var _entryModal = $('#entryModal');
-var _ingredientTable = $('#ingredientTable').DataTable({
+var _priceContainer = _entryModal.find('#price-container');
+var _ingredientTable = _entryModal.find('#ingredientTable').DataTable({
     searching: false,
     paging: false,
 });
@@ -30,6 +31,8 @@ $('.dish-table').each(function(i, _tableElement) {
         _ingredientTable.clear();
         _ingredientTable.rows.add(dish.ingredientList);
         _ingredientTable.draw();
+
+        _priceContainer.text(dish.price);
 
         _entryModal.modal('show');
     }
