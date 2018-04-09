@@ -11,9 +11,7 @@ public class IngredientManager {
     private IIngredientRepository ingredientRepository;
 
     public boolean isOutOfStock(Ingredient ingredient)
-    {
-        return ingredient.getStock() <= ingredient.getMinimumStock();
-    }
+    {        return ingredient.getQuantity() <= ingredient.getMinimumStock();    }
 
     public Iterable<Ingredient> getAll(){ return ingredientRepository.findAll();}
 
