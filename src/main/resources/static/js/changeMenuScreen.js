@@ -41,18 +41,20 @@ _dishButton.on('click', function(){
 });
 
 _dishIngredientEntryTableElement.on('click', 'tr', function () {
-    openModalForIngredients({},false);
+    var row = this;
+    var dishIngredientEntry = _DishDataTable.row(row).data();
+    openModalForIngredients(dishIngredientEntry, false, row);
 });
 
 _dishTableElement.on('click', 'tr', function () {
-    var data = _DishDataTable.row(this).data();
+    var dish = _DishDataTable.row(this).data();
 
-    if(!data) {
-        console.error('unable to retrieve data');
+    if(!dish) {
+        console.error('unable to retrieve dish');
         return;
     }
 
-    $.get(_restEndpoint + data.id, function(data) {
+    $.get(_restEndpoint + dish.id, function(data) {
         if(!data) return;
 
         openEditDishModal(data, false);
@@ -60,7 +62,7 @@ _dishTableElement.on('click', 'tr', function () {
 });
 
 //Open Modal for add ingredient
-function openModalForIngredients(ingredient, newEntry){
+function openModalForIngredients(dishIngredientEntry, newEntry, row){
 
     if(newEntry){
         _ingredientModalElement.find('#modal-title').html('Add ingredient to Dish');
@@ -111,7 +113,10 @@ function openModalForIngredients(ingredient, newEntry){
         _ingredientModalElement.find('#secondDelete').show()
         .off('click')
         .on('click', function() {
-            _dishIngredientEntryTableElement.row().remove(this);
+            var _dishIngredientEntryTable = _dishIngredientEntryTableElement.DataTable();
+            _dishIngredientEntryTable.row(row).remove();
+            _dishIngredientEntryTable.draw();
+            _ingredientModalElement.modal('hide');
         });
     }
 
