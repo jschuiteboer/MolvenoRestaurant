@@ -101,7 +101,14 @@ function openModalForIngredients(dishIngredientEntry, newEntry, row){
         };
 
         var _dishIngredientEntryTable = _dishIngredientEntryTableElement.DataTable();
-        _dishIngredientEntryTable.row.add(dishIngredientEntry);
+
+        if(newEntry) {
+            _dishIngredientEntryTable.row.add(dishIngredientEntry);
+        } else {
+            _dishIngredientEntryTable.row(row).data(dishIngredientEntry);
+
+        }
+
         _dishIngredientEntryTable.draw();
 
         _ingredientModalElement.modal('hide');
