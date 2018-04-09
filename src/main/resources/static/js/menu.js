@@ -11,7 +11,9 @@ $(document).ready(function() {
         searching: false,
         paging: false,
     });
+    var _inputComment = $('#inputComment');
     var _btnPlaceOrder = $('#btnPlaceOrder');
+    var _msgContainer = $('#msg-container');
 
     $('.dish-table').each(function(i, _tableElement) {
         _tableElement = $(_tableElement);
@@ -45,6 +47,7 @@ $(document).ready(function() {
                 _orderTable.row.add(dish);
                 _orderTable.draw();
                 _entryModal.modal('hide');
+                _btnPlaceOrder.removeClass('hide');
             });
 
             _entryModal.modal('show');
@@ -55,7 +58,7 @@ $(document).ready(function() {
         var _orderList = _orderTable.rows().data().toArray();
         var order = {
             orderList: [],
-            comment: '',
+            comment: _inputComment.val(),
         };
 
         $.each(_orderList, function(i, dish) {
@@ -70,9 +73,15 @@ $(document).ready(function() {
             type: 'post',
             data: JSON.stringify(order),
             success: function() {
-                _btnPlaceOrder.disable();
-
+                displayOrderMessage('Order placed', 'bg-info');
             },
         });
     });
+
+    function displayOrderMessage(msg, cssClass) {
+        var _msg = $('<p>');
+        _msg.text(msg);
+        _msg.addClass(cssClass);
+        _msgContainer.append(_msg);
+    }
 });
