@@ -104,9 +104,7 @@ function openModalForObject(data,newEntry) {
         _modalElement.find('#btndelete')
             .off('click')
             .on('click', function() {
-                var confirmResult= false;
                 _confirmElement.modal('show');
-                _modalElement.modal('hide');
                 _confirmElement.find('#btnconfirm')
                     .off('click')
                     .on('click', function(){
@@ -116,6 +114,7 @@ function openModalForObject(data,newEntry) {
                             type: 'delete',
                             success: function() {
                             _confirmElement.modal('hide');
+                            _modalElement.modal('hide');
                             reloadData();
                             },
                         });
