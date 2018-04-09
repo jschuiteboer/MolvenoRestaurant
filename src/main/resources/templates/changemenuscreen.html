@@ -25,7 +25,7 @@
         </thead>
     </table>
 
-    <div id="entryModal" class="modal fade" role="dialog">
+    <div id="dishModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -66,13 +66,20 @@
 
                     </form>
                     <br>
+
+                    <h3 class="modal-title page-header">Ingredients</h3>
                     <br>
 
-                    <label for="ingredientTable">This dish contains the following ingredients</label>
-                    <table id="ingredientTable" class="table table-bordered table-hover white-bg">
+                    <button id="addIngredientBtn" class="btn btn-primary">Add ingredient</button>
+
+
+                    <table id="dishIngredientEntryTable" class="table table-bordered table-hover white-bg" style="width:100%">
                         <thead>
                         <tr>
-                            <th data-data="ingredientName">Ingredient</th>
+                            <th data-data="id" data-visible="false">Id</th>
+                            <th data-data="ingredient.ingredientName">Ingredient</th>
+                            <th data-data="quantity">Quantity</th>
+                            <th data-data="ingredient.unit">Unit</th>
                         </tr>
                         </thead>
                     </table>
@@ -89,70 +96,7 @@
         </div>
     </div>
 
-    <!--<div id="addIngredientModal" class="modal fade" role="dialog">-->
-        <!--<div class="modal-dialog">-->
-            <!--<div class="modal-content">-->
-                <!--<div class="modal-header">-->
-
-                    <!--<button class="close"  data-dismiss="modal">&times;</button>-->
-                    <!--<h3 id="modal-title" class="modal-title">Dish</h3>-->
-
-                <!--</div>-->
-                <!--<div class="modal-bo\dy">-->
-
-                    <!--<form enctype='text/plain'>-->
-
-                        <!--<div class="form-group">-->
-                            <!--<label for="name">Dish name</label>-->
-                            <!--<input id="name" type="text" class="form-control" placeholder="Dish name" required>-->
-                        <!--</div>-->
-
-                        <!--<div class="form-group">-->
-                            <!--<label for="price">Price</label>-->
-                            <!--<input id="price" type="number" class="form-control" placeholder="Price" required>-->
-                        <!--</div>-->
-
-                        <!--<div class="form-group">-->
-                            <!--<label for="description">Description</label>-->
-                            <!--<input id="description" type="text" class="form-control" placeholder="Description">-->
-                        <!--</div>-->
-
-                        <!--<div class="form-group">-->
-                            <!--<label for="category">Category</label>-->
-                            <!--<select name="category" id="category" required>-->
-                                <!--<option value="Starter" selected data-default>Starter</option>-->
-                                <!--<option value="Main">Main</option>-->
-                                <!--<option value="Dessert">Dessert</option>-->
-                                <!--<option value="NonAlcoholicDrinks">NonAlcoholicDrinks</option>-->
-                                <!--<option value="AlocholicDrinks">AlocholicDrinks</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-
-                    <!--</form>-->
-                    <!--<br>-->
-                    <!--<br>-->
-
-                    <!--<label for="ingredientTable">This dish contains the following ingredients</label>-->
-                    <!--<table id="ingredientTable" class="table table-bordered table-hover white-bg">-->
-                        <!--<thead>-->
-                        <!--<tr>-->
-                            <!--<th data-data="ingredientName">Ingredient</th>-->
-                            <!--<th data-data="quantity">Quantity</th>-->
-                        <!--</tr>-->
-                        <!--</thead>-->
-                    <!--</table>-->
-
-                <!--</div>-->
-                <!--<div class="modal-footer">-->
-
-                    <!--<button id="btnsubmit" class="btn btn-primary">Submit</button>-->
-                    <!--<button id="btndelete" class="btn btn-danger">Delete</button>-->
-                    <!--<button id="btnclose" class="btn btn-default" data-dismiss="modal">Close</button>-->
-
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+    {{>components/ingredientModal}}
 
 </div>
 
