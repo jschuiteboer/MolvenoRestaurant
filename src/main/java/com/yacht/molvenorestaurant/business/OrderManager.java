@@ -7,6 +7,9 @@ import com.yacht.molvenorestaurant.repository.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class OrderManager {
     @Autowired
@@ -24,6 +27,13 @@ public class OrderManager {
     }
 
     public Order saveOrder(Order order) {
+        List<Dish> newOrderList = new ArrayList<>();
+        for(Dish dish : order.getOrderList()) {
+            newOrderList.add(this.dishRepository.findOne(dish.getId()));
+        }
+
+        order.setOrderList(newOrderList);
+
         return this.orderRepository.save(order);
     }
 

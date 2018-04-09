@@ -11,7 +11,7 @@ public class Order {
     @GeneratedValue
     private Long ID;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Dish> orderList = new ArrayList<>();
 
     private String comment;

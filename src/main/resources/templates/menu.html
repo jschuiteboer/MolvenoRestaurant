@@ -1,5 +1,5 @@
 {{>components/head}}
-<div class="container">
+<div class="container-fluid">
 
     <div class="header page-header">
         <img src="http://localhost:8080/images/companyLogo.png" alt="Company Logo" width="100px" class="mrg-top-30">
@@ -9,101 +9,167 @@
     </div>
 
     <h2>Menu</h2>
-    <h4>Starter</h4>
-    <table id="starterTable" class="table table-bordered table-hover white-bg">
-        <thead>
-        <tr>
-            <th data-data="id">id</th>
-            <th data-data="name">Name</th>
-            <th data-data="price">Price</th>
-        </tr>
-        </thead>
-    </table>
-    <h4>Main</h4>
-    <table id="mainTable" class="table table-bordered table-hover white-bg">
-        <thead>
-        <tr>
-            <th data-data="id">id</th>
-            <th data-data="name">Name</th>
-            <th data-data="price">Price</th>
-        </tr>
-        </thead>
-    </table>
-    <h4>Dessert</h4>
-    <table id="dessertTable" class="table table-bordered table-hover white-bg">
-        <thead>
-        <tr>
-            <th data-data="id">id</th>
-            <th data-data="name">Name</th>
-            <th data-data="price">Price</th>
-        </tr>
-        </thead>
-    </table>
-    <h4>Drinks</h4>
-    <table id="drinksTable" class="table table-bordered table-hover white-bg">
-        <thead>
-        <tr>
-            <th data-data="id">id</th>
-            <th data-data="name">Name</th>
-            <th data-data="price">Price</th>
-        </tr>
-        </thead>
-    </table>
-    <h4>Alcohol</h4>
-    <table id="alcoholTable" class="table table-bordered table-hover white-bg">
-        <thead>
-        <tr>
-            <th data-data="id">id</th>
-            <th data-data="name">Name</th>
-            <th data-data="price">Price</th>
-        </tr>
-        </thead>
-    </table>
 
-    <div id="entryModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
+    <div class="col-md-6 col-md-push-6">
 
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 id="modal-title" class="modal-title">Order</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Your Order</h3>
+            </div>
+            <div class="panel-body">
+                <div id="msg-container container"></div>
+                <p id="orderPlaceInfo" class="bg-primary hide">Your order has been placed</p>
 
-                </div>
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label for="comment">Commentaar</label>
-                        <input id="comment" type="text" class="form-control" placeholder="Commentaar">
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="ready">
-                        <label class="form-check-label" for="ready">
-                            is klaar
-                        </label>
-                    </div>
-
-                    <table id="dishTable" class="table table-bordered table-hover">
+                <div class="form-group">
+                    <table id="orderTable" class="table table-bordered table-hover white-bg" style="width:100%">
                         <thead>
                         <tr>
                             <th data-data="id">id</th>
-                            <th data-data="name">name</th>
-                            <th data-data="price">price</th>
+                            <th data-data="name">Name</th>
+                            <th data-data="price">Price</th>
                         </tr>
                         </thead>
                     </table>
-
                 </div>
-                <div class="modal-footer">
 
-                    <button id="btnsubmit" class="btn btn-primary">Submit</button>
-                    <button id="btndelete" class="btn btn-danger">Delete</button>
-                    <button id="btnclose" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="form-group">
+                    <label for="inputComment">Comments</label>
+                    <textarea id="inputComment" class="form-control" rows="3"></textarea>
+                </div>
 
+                <button id="btnPlaceOrder" class="btn btn-primary pull-right hide">Place order</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6 col-md-pull-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Starter</h3>
+            </div>
+            <div class="panel-body">
+                <table id="starterTable" class="dish-table table table-bordered table-hover white-bg" style="width:100%" data-endpoint="dishes/cat/Starter">
+                    <thead>
+                    <tr>
+                        <th data-data="id">id</th>
+                        <th data-data="name">Name</th>
+                        <th data-data="price">Price</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Main</h3>
+            </div>
+            <div class="panel-body">
+                <table id="mainTable" class="dish-table table table-bordered table-hover white-bg" style="width:100%" data-endpoint="dishes/cat/Main">
+                    <thead>
+                    <tr>
+                        <th data-data="id">id</th>
+                        <th data-data="name">Name</th>
+                        <th data-data="price">Price</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Dessert</h3>
+            </div>
+            <div class="panel-body">
+                <table id="dessertTable" class="dish-table table table-bordered table-hover white-bg" style="width:100%" data-endpoint="dishes/cat/Dessert">
+                    <thead>
+                    <tr>
+                        <th data-data="id">id</th>
+                        <th data-data="name">Name</th>
+                        <th data-data="price">Price</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Drinks</h3>
+            </div>
+            <div class="panel-body">
+                <table id="drinksTable" class="dish-table table table-bordered table-hover white-bg" style="width:100%" data-endpoint="dishes/cat/NonAlcoholicDrinks">
+                    <thead>
+                    <tr>
+                        <th data-data="id">id</th>
+                        <th data-data="name">Name</th>
+                        <th data-data="price">Price</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Alcohol</h3>
+            </div>
+            <div class="panel-body">
+                <table id="alcoholTable" class="dish-table table table-bordered table-hover white-bg" style="width:100%" data-endpoint="dishes/cat/AlcoholicDrinks">
+                    <thead>
+                    <tr>
+                        <th data-data="id">id</th>
+                        <th data-data="name">Name</th>
+                        <th data-data="price">Price</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div id="entryModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 id="modal-title" class="modal-title">Dish</h3>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label>Ingredients</label>
+                            <table id="ingredientTable" class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th data-data="id">id</th>
+                                    <th data-data="ingredient.ingredientName">Name</th>
+                                    <th data-data="ingredient.allergy">Allergy</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label>Price</label>
+                            <h1 id="price-container" class="pull-right"></h1>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button id="btnAddtoOrder" class="btn btn-primary">Add to order</button>
+                        <button id="btnclose" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="http://localhost:8080/js/menu.js"></script>
 </div>
 {{>components/footer}}
