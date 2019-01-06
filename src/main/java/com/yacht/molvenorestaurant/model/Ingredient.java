@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 
 @Entity
 public class Ingredient {
+
     @Id
     @GeneratedValue
     private Long id;

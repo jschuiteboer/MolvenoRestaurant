@@ -93,6 +93,7 @@ function openModalForIngredients(dishIngredientEntry, newEntry, row){
     .on('click', function(){
         var _dishIngredientListField = _ingredientModalElement.find('#ingredientDropdown');
         var _dishIngredientQuantityField = _ingredientModalElement.find('#quantity');
+        var _priceField = _dishModalElement.find('#price');
 
         var dishIngredientEntry = {
             id: null,
@@ -105,14 +106,21 @@ function openModalForIngredients(dishIngredientEntry, newEntry, row){
         if(newEntry) {
             _dishIngredientEntryTable.row.add(dishIngredientEntry);
         } else {
-            _dishIngredientEntryTable.row(row).data(dishIngredientEntry);
-
+            _dishIngredientEntryTable.row(row);
         }
 
+        var selectedIngredientValue = {
+                    price: dishIngredientEntry.ingredient.price,
+                    quantity: dishIngredientEntry.quantity,
+                };
+
+        var addedValue = selectedIngredientValue.price * selectedIngredientValue.quantity;
+        var currentPrice = _priceField.val();
+        _priceField.val(Number(currentPrice)+Number(addedValue));
+        reloadData();
+
         _dishIngredientEntryTable.draw();
-
         _ingredientModalElement.modal('hide');
-
     });
 
     if(!newEntry){
@@ -129,7 +137,7 @@ function openModalForIngredients(dishIngredientEntry, newEntry, row){
     _ingredientModalElement.modal('show');
 
 }
-
+//lengte is drie keer de breedtef
 //Open the Dish Modal
 function openEditDishModal(dish, newEntry) {
     var _nameField = _dishModalElement.find('#name');
